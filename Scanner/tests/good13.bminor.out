@@ -1,0 +1,10 @@
+TOKEN_IDENTIFIER ident55 
+TOKEN_IDENTIFIER ident55_ 
+TOKEN_IDENTIFIER ident__55__ 
+TOKEN_IDENTIFIER thisIsAReallyReallyLongIdentifierNameThatHasTonsOfLettersInIt 
+TOKEN_ASSIGNMENT
+TOKEN_INTEGER_LITERAL 7 
+TOKEN_IDENTIFIER variable_names_may_contain_underscores_ 
+TOKEN_IDENTIFIER _variables_can_start_with_an_underscore_67 
+TOKEN_INTEGER_LITERAL 7 
+TOKEN_IDENTIFIER minus5 

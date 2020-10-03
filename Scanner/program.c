@@ -1,0 +1,1 @@
+str:string = "we can write an escaped backslash \\";
