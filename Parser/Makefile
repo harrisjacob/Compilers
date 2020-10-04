@@ -1,7 +1,6 @@
-# The top level rule indicates how to link everything together into calc
 
-calc: main.o scanner.o parser.o
-	gcc main.o scanner.o parser.o -o calc -lm
+bminor: main.o scanner.o parser.o
+	gcc main.o scanner.o parser.o -o bminor -lm
 
 # This pattern indicates that any .o file depends
 # upon the .c file of the same name.
@@ -21,4 +20,4 @@ parser.c parser.h: parser.bison
 # clean causes all intermediate files to be deleted.
 
 clean:
-	rm -f parser.[ch] parser.output scanner.c *.o calc
+	rm -f parser.[ch] parser.output scanner.c *.o bminor

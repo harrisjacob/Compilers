@@ -46,9 +46,10 @@ string 											{ return TOKEN_STRING; }
 ;	 											{ return TOKEN_SEMICOLON; }
 :												{ return TOKEN_COLON; }
 ,												{ return TOKEN_COMMA; }
-\{												{ return TOKEN_R_CURLY; }	
+\{												{ return TOKEN_R_CURLY; }
 \}												{ return TOKEN_L_CURLY; }
 \\												{ return TOKEN_BACKSLASH; }
+<<EOF>>                                         { return TOKEN_EOF; }
 ({LETTER}|_)({LETTER}|{DIGIT}|_){0,255} 	    { 
                                                     if(yyleng>255) return TOKEN_ERROR;
                                                     return TOKEN_IDENTIFIER;
