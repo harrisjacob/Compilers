@@ -5,6 +5,7 @@ DIGIT  [0-9]
 LETTER [a-zA-Z]
 %%
 (" "|\t|\n)  /* skip whitespace */
+<<EOF>>                                         { return TOKEN_EOF; }
 array											{ return TOKEN_ARRAY; }
 else	    									{ return TOKEN_ELSE; }
 false		    								{ return TOKEN_FALSE; }
@@ -53,7 +54,7 @@ string 											{ return TOKEN_STRING; }
                                                     if(yyleng>255) return TOKEN_ERROR;
                                                     return TOKEN_IDENTIFIER;
                                                 }
-("+"|"-")?({DIGIT}){1,8}						{ return TOKEN_INTEGER_LITERAL; }
+({DIGIT}){1,8}          						{ return TOKEN_INTEGER_LITERAL; }
 
 \'(\\)?([^\']){1}\'								{
 													yytext++;			//remove first '
@@ -111,7 +112,7 @@ int yywrap() { return 1; }
 const char* token_to_string(int token){
 	
 	const char* token_trans[] = {
-    	"TOKEN_EOF=0",
+    	"TOKEN_EOF",
     	"TOKEN_ARRAY",
     	"TOKEN_ELSE",
     	"TOKEN_FALSE",

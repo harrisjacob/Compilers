@@ -2,7 +2,7 @@
 #define TOKEN_H
 
 typedef enum {
-     TOKEN_EOF=0,
+     TOKEN_EOF,
      
      //Keywords
      TOKEN_ARRAY,

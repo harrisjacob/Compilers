@@ -21,7 +21,10 @@ int main(int argc, char* argv[]){
 
 			while(1) {
 				token_t t = yylex();
-				if(t==TOKEN_EOF) break;
+				if(t==TOKEN_EOF){
+					printf("%s\n", token_to_string(t));
+					break;
+				} 
 				if(t==TOKEN_ERROR){
 					fprintf(stderr,"scan error: invalid token encountered\n");
 					return 1;
