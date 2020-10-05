@@ -78,11 +78,14 @@ extern int yyerror( char *str );
 program : stmt_m TOKEN_EOF { return 0; }
 		;
 
-stmt_m	: stmt stmt_m
-		| if stmt_m
+stmt_m	: flow stmt_m
 		|
 		;
 
+flow	: stmt
+		| if
+		| for
+		;
 
 stmt	: expr TOKEN_SEMICOLON
 		;
@@ -98,11 +101,12 @@ body	: TOKEN_L_CURLY stmt_m TOKEN_R_CURLY
 		;
 
 inside	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside
-		| body
-		| stmt
+		| ifBody
 		;
 
-
+ifBody 	: body
+		| stmt
+		;
 
 decl 	: TOKEN_IDENTIFIER TOKEN_COLON type
 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr
@@ -190,6 +194,12 @@ argList : expr
 		| expr TOKEN_COMMA argList
 		;
 
+for 	: TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN flow
+		;
+
+opt_expr: /*no epxr*/
+		| expr
+		;
 
 
 %%
