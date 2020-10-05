@@ -75,13 +75,38 @@ extern int yyerror( char *str );
 
 /* Here is the grammar: program is the start symbol. */
 
-program : stmt program
-		| stmt { return 0; }
+program : stmt_m TOKEN_EOF { return 0; }
 		;
 
-stmt	: expr TOKEN_SEMICOLON
-		| decl TOKEN_SEMICOLON
+stmt_m	: stmt stmt_m
+		| if stmt_m
+		|
 		;
+
+
+stmt	: expr TOKEN_SEMICOLON
+		;
+
+if 		: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE if
+		| body
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt
+		;
+/*
+body	: TOKEN_L_CURLY expr TOKEN_SEMICOLON TOKEN_R_CURLY
+		| expr TOKEN_SEMICOLON
+		;
+*/
+body	: TOKEN_L_CURLY stmt_m TOKEN_R_CURLY
+		;
+
+inside	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside
+		| body
+		| stmt
+		;
+
+
 
 decl 	: TOKEN_IDENTIFIER TOKEN_COLON type
 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr
@@ -95,6 +120,8 @@ type 	: TOKEN_INTEGER
 		;
 
 expr	: TOKEN_IDENTIFIER TOKEN_ASSIGNMENT expr
+		| index TOKEN_ASSIGNMENT expr
+		| decl
 		| expr1
 		;
 
@@ -147,8 +174,10 @@ expr9	: TOKEN_INTEGER_LITERAL
 		| boolean
 		| TOKEN_CHARACTER_LITERAL
 		| TOKEN_STRING_LITERAL
-		| TOKEN_IDENTIFIER TOKEN_L_SUB expr TOKEN_R_SUB
+		| index
 		;
+
+index	: expr9 TOKEN_L_SUB expr TOKEN_R_SUB
 
 boolean : TOKEN_TRUE
 		| TOKEN_FALSE
