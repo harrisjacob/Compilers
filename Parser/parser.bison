@@ -75,13 +75,32 @@ extern int yyerror( char *str );
 
 /* Here is the grammar: program is the start symbol. */
 
-program : stmt program
-		| stmt { return 0; }
+program : stmt TOKEN_EOF { return 0; }
 		;
 
-stmt	: expr TOKEN_SEMICOLON
-		| decl TOKEN_SEMICOLON
+stmt	: expr TOKEN_SEMICOLON stmt
+		| if stmt
+		|
 		;
+
+if 		: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE if
+		| body
+		;
+/*
+body	: TOKEN_L_CURLY expr TOKEN_SEMICOLON TOKEN_R_CURLY
+		| expr TOKEN_SEMICOLON
+		;
+*/
+body	: TOKEN_L_CURLY expr TOKEN_SEMICOLON TOKEN_R_CURLY
+		| expr TOKEN_SEMICOLON
+		;
+
+inside	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside
+		| body
+		;
+
+
 
 decl 	: TOKEN_IDENTIFIER TOKEN_COLON type
 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr
@@ -95,6 +114,7 @@ type 	: TOKEN_INTEGER
 		;
 
 expr	: TOKEN_IDENTIFIER TOKEN_ASSIGNMENT expr
+		| decl
 		| expr1
 		;
 

@@ -4,7 +4,7 @@
 DIGIT  [0-9]
 LETTER [a-zA-Z]
 %%
-(" "|\t|\n)  /* skip whitespace */
+(" "|\t|\n|\r)  /* skip whitespace */
 <<EOF>>                                         { return TOKEN_EOF; }
 array											{ return TOKEN_ARRAY; }
 else	    									{ return TOKEN_ELSE; }
@@ -47,8 +47,8 @@ string 											{ return TOKEN_STRING; }
 ;	 											{ return TOKEN_SEMICOLON; }
 :												{ return TOKEN_COLON; }
 ,												{ return TOKEN_COMMA; }
-\{												{ return TOKEN_R_CURLY; }	
-\}												{ return TOKEN_L_CURLY; }
+\{												{ return TOKEN_L_CURLY; }	
+\}												{ return TOKEN_R_CURLY; }
 \\												{ return TOKEN_BACKSLASH; }
 ({LETTER}|_)({LETTER}|{DIGIT}|_){0,255} 	    { 
                                                     if(yyleng>255) return TOKEN_ERROR;
