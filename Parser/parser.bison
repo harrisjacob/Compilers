@@ -85,6 +85,8 @@ stmt_m	: flow stmt_m
 flow	: stmt
 		| if
 		| for
+		| return
+		| print
 		;
 
 stmt	: expr TOKEN_SEMICOLON
@@ -201,6 +203,11 @@ opt_expr: /*no epxr*/
 		| expr
 		;
 
+return 	: TOKEN_RETURN stmt
+		;
+
+print 	: TOKEN_PRINT optionalArgList TOKEN_SEMICOLON
+		;
 
 %%
 
