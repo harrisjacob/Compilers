@@ -88,18 +88,22 @@ stmt_m2 : flow stmt_m
 flow	: stmt
 		| if
 		| for
-		| return
 		| print
 		;
 
 stmt	: expr TOKEN_SEMICOLON
+		| return
 		;
 
 if 		: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if
 		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE if
 		| body
-		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt
-		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN ifEnds
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE ifEnds
+		;
+
+ifEnds	: print
+		| stmt
 		;
 
 body	: TOKEN_L_CURLY stmt_m2 TOKEN_R_CURLY
@@ -110,7 +114,7 @@ inside	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside
 		;
 
 ifBody 	: body
-		| stmt
+		| ifEnds
 		;
 
 fDef	: fDecl TOKEN_ASSIGNMENT body
@@ -123,7 +127,14 @@ decl 	: arrDecl
 		| decl1
 		;
 
-arrDecl : TOKEN_IDENTIFIER TOKEN_COLON TOKEN_ARRAY TOKEN_L_SUB TOKEN_INTEGER_LITERAL TOKEN_R_SUB type
+arrDecl : TOKEN_IDENTIFIER TOKEN_COLON arrSize moreArr type
+		;
+
+arrSize : TOKEN_ARRAY TOKEN_L_SUB TOKEN_INTEGER_LITERAL TOKEN_R_SUB
+		;
+
+moreArr	:
+		| arrSize moreArr
 		;
 
 decl1 	: TOKEN_IDENTIFIER TOKEN_COLON type
