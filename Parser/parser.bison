@@ -78,16 +78,18 @@ extern int yyerror( char *str );
 program : stmt_m TOKEN_EOF { return 0; }
 		;
 
-stmt_m	: flow stmt_m
+stmt_m	: stmt_m2
+		| fDef stmt_m
 		|
 		;
+
+stmt_m2 : flow stmt_m
 
 flow	: stmt
 		| if
 		| for
 		| return
 		| print
-		| fDef
 		;
 
 stmt	: expr TOKEN_SEMICOLON
@@ -100,7 +102,7 @@ if 		: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if
 		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt
 		;
 
-body	: TOKEN_L_CURLY stmt_m TOKEN_R_CURLY
+body	: TOKEN_L_CURLY stmt_m2 TOKEN_R_CURLY
 		;
 
 inside	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside
@@ -111,7 +113,7 @@ ifBody 	: body
 		| stmt
 		;
 
-fDef	: fDecl TOKEN_ASSIGNMENT flow
+fDef	: fDecl TOKEN_ASSIGNMENT body
 		;
 
 arrDef	: arrDecl TOKEN_ASSIGNMENT TOKEN_L_CURLY argList TOKEN_R_CURLY
