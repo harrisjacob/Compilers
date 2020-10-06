@@ -87,6 +87,7 @@ flow	: stmt
 		| for
 		| return
 		| print
+		| fDef
 		;
 
 stmt	: expr TOKEN_SEMICOLON
@@ -110,21 +111,57 @@ ifBody 	: body
 		| stmt
 		;
 
-decl 	: TOKEN_IDENTIFIER TOKEN_COLON type
-		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr
-		| TOKEN_IDENTIFIER TOKEN_COLON TOKEN_ARRAY TOKEN_L_SUB TOKEN_INTEGER_LITERAL TOKEN_R_SUB
+fDef	: fDecl TOKEN_ASSIGNMENT flow
 		;
+
+arrDef	: arrDecl TOKEN_ASSIGNMENT TOKEN_L_CURLY argList TOKEN_R_CURLY
+		;
+
+decl 	: arrDecl
+		| decl1
+		;
+
+arrDecl : TOKEN_IDENTIFIER TOKEN_COLON TOKEN_ARRAY TOKEN_L_SUB TOKEN_INTEGER_LITERAL TOKEN_R_SUB type
+		;
+
+decl1 	: TOKEN_IDENTIFIER TOKEN_COLON type
+		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr
+		| fDecl
+		;
+
+
+fDecl	: TOKEN_IDENTIFIER TOKEN_COLON TOKEN_FUNCTION type TOKEN_L_PAREN optFargs TOKEN_R_PAREN
+		;
+
+optFargs:
+		| fargs
+		;
+
+fargs 	: fargs1
+		| fargs1 TOKEN_COMMA fargs
+		;
+
+fargs1 	: decl
+		| TOKEN_IDENTIFIER TOKEN_COLON TOKEN_ARRAY TOKEN_L_SUB TOKEN_R_SUB type
+
 
 type 	: TOKEN_INTEGER 
 		| TOKEN_BOOLEAN
 		| TOKEN_CHARACTER
 		| TOKEN_STRING
+		| TOKEN_VOID
+		;
+
+literal : TOKEN_INTEGER_LITERAL
+		| TOKEN_CHARACTER_LITERAL
+		| TOKEN_STRING_LITERAL
 		;
 
 expr	: TOKEN_IDENTIFIER TOKEN_ASSIGNMENT expr
 		| index TOKEN_ASSIGNMENT expr
 		| decl
 		| expr1
+		| arrDef
 		;
 
 expr1	: expr2 TOKEN_LOGIC_OR expr1
@@ -169,13 +206,11 @@ expr8	: expr9 TOKEN_POST_INC
 		| expr9
 		;
 
-expr9	: TOKEN_INTEGER_LITERAL
+expr9	: literal
 		| TOKEN_L_PAREN expr TOKEN_R_PAREN
 		| fcall
 		| TOKEN_IDENTIFIER
 		| boolean
-		| TOKEN_CHARACTER_LITERAL
-		| TOKEN_STRING_LITERAL
 		| index
 		;
 
