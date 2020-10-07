@@ -75,95 +75,150 @@ extern int yyerror( char *str );
 
 /* Here is the grammar: program is the start symbol. */
 
-program : stmt_m TOKEN_EOF { return 0; }
+program : decl_list TOKEN_EOF { return 0; }
 		;
 
-stmt_m	: stmt_m2
-		| fDef stmt_m
-		|
+decl_list: decl decl_list
+		| /*epsilon*/
 		;
 
-stmt_m2 : flow stmt_m
+decl 	: TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMICOLON
+		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT stmt2
+		;
 
-flow	: stmt
-		| if
+stmtList: stmt stmtList
+		| /*epsilon*/
+		;
+
+stmt 	: if
 		| for
 		| print
-		;
-
-stmt	: expr TOKEN_SEMICOLON
 		| return
+		| stmt2
 		;
 
-if 		: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN if
-		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE if
-		| body
-		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN ifEnds
-		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE ifEnds
+stmt2 	: expr TOKEN_SEMICOLON
+		| decl
+		| fcall
+		| TOKEN_L_CURLY stmtList TOKEN_R_CURLY
+		| TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_SEMICOLON
 		;
-
-ifEnds	: print
-		| stmt
-		;
-
-body	: TOKEN_L_CURLY stmt_m2 TOKEN_R_CURLY
-		;
-
-inside	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside
-		| ifBody
-		;
-
-ifBody 	: body
-		| ifEnds
-		;
-
-fDef	: fDecl TOKEN_ASSIGNMENT body
-		;
-
-arrDef	: arrDecl TOKEN_ASSIGNMENT TOKEN_L_CURLY argList TOKEN_R_CURLY
-		;
-
-decl 	: arrDecl
-		| decl1
-		;
-
-arrDecl : TOKEN_IDENTIFIER TOKEN_COLON arrSize moreArr type
-		;
-
-arrSize : TOKEN_ARRAY TOKEN_L_SUB TOKEN_INTEGER_LITERAL TOKEN_R_SUB
-		;
-
-moreArr	:
-		| arrSize moreArr
-		;
-
-decl1 	: TOKEN_IDENTIFIER TOKEN_COLON type
-		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr
-		| fDecl
-		;
-
-
-fDecl	: TOKEN_IDENTIFIER TOKEN_COLON TOKEN_FUNCTION type TOKEN_L_PAREN optFargs TOKEN_R_PAREN
-		;
-
-optFargs:
-		| fargs
-		;
-
-fargs 	: fargs1
-		| fargs1 TOKEN_COMMA fargs
-		;
-
-fargs1 	: decl
-		| TOKEN_IDENTIFIER TOKEN_COLON TOKEN_ARRAY TOKEN_L_SUB TOKEN_R_SUB type
-
 
 type 	: TOKEN_INTEGER 
 		| TOKEN_BOOLEAN
 		| TOKEN_CHARACTER
 		| TOKEN_STRING
+		| TOKEN_FUNCTION type TOKEN_L_PAREN fDefOpt TOKEN_R_PAREN
+		| TOKEN_ARRAY TOKEN_L_SUB expr TOKEN_R_SUB type
 		| TOKEN_VOID
 		;
+
+fDefOpt : /* epsilon */
+		| fDef
+		;
+
+fDef 	: TOKEN_IDENTIFIER TOKEN_COLON type
+		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_COMMA fDef
+		;
+
+
+
+if 		: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt
+		// | TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN ifEnds
+		// | TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE ifEnds
+		;
+
+inside	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside
+		| stmt2
+		;
+
+fcall	: TOKEN_IDENTIFIER TOKEN_L_PAREN optionalArgList TOKEN_R_PAREN TOKEN_SEMICOLON
+ 		;
+
+optionalArgList	: /*no args*/
+				| argList
+				;
+
+argList : expr
+		| expr TOKEN_COMMA argList
+		;
+// stmt_m	: stmt_m2
+// 		| fDef stmt_m
+// 		|
+// 		;
+
+// stmt_m2 : flow stmt_m
+
+
+
+// flow	: stmt
+// 		| if
+// 		| for
+// 		| print
+// 		;
+
+// stmt	: expr TOKEN_SEMICOLON
+// 		| return
+// 		;
+
+
+
+// ifEnds	: print
+// 		| stmt
+// 		;
+
+// body	: TOKEN_L_CURLY stmt_m2 TOKEN_R_CURLY
+//		;
+
+
+
+// ifBody 	: body
+// 		| ifEnds
+// 		;
+
+// fDef	: fDecl TOKEN_ASSIGNMENT body
+//		;
+
+// arrDef	: arrDecl TOKEN_ASSIGNMENT TOKEN_L_CURLY argList TOKEN_R_CURLY
+// 		;
+
+// decl 	: arrDecl
+// 		| decl1
+// 		;
+
+// arrDecl : TOKEN_IDENTIFIER TOKEN_COLON arrSize moreArr type
+//		;
+
+// arrSize : TOKEN_ARRAY TOKEN_L_SUB TOKEN_INTEGER_LITERAL TOKEN_R_SUB
+// 		;
+
+// moreArr	:
+// 		| arrSize moreArr
+// 		;
+
+// decl1 	: TOKEN_IDENTIFIER TOKEN_COLON type
+// 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr
+// 		| fDecl
+// 		;
+
+
+// fDecl	: TOKEN_IDENTIFIER TOKEN_COLON TOKEN_FUNCTION type TOKEN_L_PAREN optFargs TOKEN_R_PAREN
+// 		;
+
+// optFargs:
+// 		| fargs
+// 		;
+
+// fargs 	: fargs1
+// 		| fargs1 TOKEN_COMMA fargs
+// 		;
+
+// fargs1 	: decl
+// 		| TOKEN_IDENTIFIER TOKEN_COLON TOKEN_ARRAY TOKEN_L_SUB TOKEN_R_SUB type
+
+
+
 
 literal : TOKEN_INTEGER_LITERAL
 		| TOKEN_CHARACTER_LITERAL
@@ -172,9 +227,7 @@ literal : TOKEN_INTEGER_LITERAL
 
 expr	: TOKEN_IDENTIFIER TOKEN_ASSIGNMENT expr
 		| index TOKEN_ASSIGNMENT expr
-		| decl
 		| expr1
-		| arrDef
 		;
 
 expr1	: expr2 TOKEN_LOGIC_OR expr1
@@ -221,30 +274,19 @@ expr8	: expr9 TOKEN_POST_INC
 
 expr9	: literal
 		| TOKEN_L_PAREN expr TOKEN_R_PAREN
-		| fcall
 		| TOKEN_IDENTIFIER
 		| boolean
 		| index
 		;
 
-index	: expr9 TOKEN_L_SUB expr TOKEN_R_SUB
+ index	: expr9 TOKEN_L_SUB expr TOKEN_R_SUB
+ 		;
 
 boolean : TOKEN_TRUE
 		| TOKEN_FALSE
 		;
 
-fcall	: TOKEN_IDENTIFIER TOKEN_L_PAREN optionalArgList TOKEN_R_PAREN
-		;
-
-optionalArgList	: /*no args*/
-				| argList
-				;
-
-argList : expr
-		| expr TOKEN_COMMA argList
-		;
-
-for 	: TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN flow
+for 	: TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN stmt
 		;
 
 opt_expr: /*no epxr*/
