@@ -83,25 +83,32 @@ decl_list: decl decl_list
 		;
 
 decl 	: TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMICOLON
-		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT stmt2
+		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr TOKEN_SEMICOLON
+		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY stmtList TOKEN_R_CURLY
+		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_SEMICOLON
 		;
 
 stmtList: stmt stmtList
 		| /*epsilon*/
 		;
 
-stmt 	: if
-		| for
-		| print
-		| return
-		| stmt2
+stmt 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt 														//if 1
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt 													//if 2
+		| TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN stmt //for()stmt
+		| TOKEN_RETURN expr TOKEN_SEMICOLON 																	//return
+		| TOKEN_L_CURLY stmtList TOKEN_R_CURLY 																	//body
+		| TOKEN_PRINT optionalArgList TOKEN_SEMICOLON															//print
+		| decl 																									// declaration
+		| expr TOKEN_SEMICOLON																					// regular statement
 		;
 
-stmt2 	: expr TOKEN_SEMICOLON
-		| decl
-		| fcall
-		| TOKEN_L_CURLY stmtList TOKEN_R_CURLY
-		| TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_SEMICOLON
+inside 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside										//if3
+		| TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN inside	//for()stmt
+		| TOKEN_RETURN expr TOKEN_SEMICOLON																			//return
+		| TOKEN_L_CURLY stmtList TOKEN_R_CURLY																		//body
+		| TOKEN_PRINT optionalArgList TOKEN_SEMICOLON																//print
+		| decl 																										//declaration
+		| expr TOKEN_SEMICOLON																					// regular statement
 		;
 
 type 	: TOKEN_INTEGER 
@@ -113,6 +120,16 @@ type 	: TOKEN_INTEGER
 		| TOKEN_VOID
 		;
 
+
+literal : TOKEN_INTEGER_LITERAL
+		| TOKEN_CHARACTER_LITERAL
+		| TOKEN_STRING_LITERAL
+		;
+
+boolean : TOKEN_TRUE
+		| TOKEN_FALSE
+		;
+
 fDefOpt : /* epsilon */
 		| fDef
 		;
@@ -121,108 +138,12 @@ fDef 	: TOKEN_IDENTIFIER TOKEN_COLON type
 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_COMMA fDef
 		;
 
-
-
-if 		: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt
-		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt
-		| TOKEN_IF TOKEN_L_PAREN fcall TOKEN_R_PAREN stmt
-		| TOKEN_IF TOKEN_L_PAREN fcall TOKEN_R_PAREN inside TOKEN_ELSE stmt
-		;
-
-inside	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside
-		| stmt2
-		;
-
-fcall	: TOKEN_IDENTIFIER TOKEN_L_PAREN optionalArgList TOKEN_R_PAREN TOKEN_SEMICOLON
- 		;
-
 optionalArgList	: /*no args*/
 				| argList
 				;
 
 argList : expr
 		| expr TOKEN_COMMA argList
-		;
-// stmt_m	: stmt_m2
-// 		| fDef stmt_m
-// 		|
-// 		;
-
-// stmt_m2 : flow stmt_m
-
-
-
-// flow	: stmt
-// 		| if
-// 		| for
-// 		| print
-// 		;
-
-// stmt	: expr TOKEN_SEMICOLON
-// 		| return
-// 		;
-
-
-
-// ifEnds	: print
-// 		| stmt
-// 		;
-
-// body	: TOKEN_L_CURLY stmt_m2 TOKEN_R_CURLY
-//		;
-
-
-
-// ifBody 	: body
-// 		| ifEnds
-// 		;
-
-// fDef	: fDecl TOKEN_ASSIGNMENT body
-//		;
-
-// arrDef	: arrDecl TOKEN_ASSIGNMENT TOKEN_L_CURLY argList TOKEN_R_CURLY
-// 		;
-
-// decl 	: arrDecl
-// 		| decl1
-// 		;
-
-// arrDecl : TOKEN_IDENTIFIER TOKEN_COLON arrSize moreArr type
-//		;
-
-// arrSize : TOKEN_ARRAY TOKEN_L_SUB TOKEN_INTEGER_LITERAL TOKEN_R_SUB
-// 		;
-
-// moreArr	:
-// 		| arrSize moreArr
-// 		;
-
-// decl1 	: TOKEN_IDENTIFIER TOKEN_COLON type
-// 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr
-// 		| fDecl
-// 		;
-
-
-// fDecl	: TOKEN_IDENTIFIER TOKEN_COLON TOKEN_FUNCTION type TOKEN_L_PAREN optFargs TOKEN_R_PAREN
-// 		;
-
-// optFargs:
-// 		| fargs
-// 		;
-
-// fargs 	: fargs1
-// 		| fargs1 TOKEN_COMMA fargs
-// 		;
-
-// fargs1 	: decl
-// 		| TOKEN_IDENTIFIER TOKEN_COLON TOKEN_ARRAY TOKEN_L_SUB TOKEN_R_SUB type
-
-
-
-
-literal : TOKEN_INTEGER_LITERAL
-		| TOKEN_CHARACTER_LITERAL
-		| TOKEN_STRING_LITERAL
 		;
 
 expr	: TOKEN_IDENTIFIER TOKEN_ASSIGNMENT expr
@@ -277,27 +198,16 @@ expr9	: literal
 		| TOKEN_IDENTIFIER
 		| boolean
 		| index
+		| TOKEN_IDENTIFIER TOKEN_L_PAREN optionalArgList TOKEN_R_PAREN
 		;
 
- index	: expr9 TOKEN_L_SUB expr TOKEN_R_SUB
+index	: expr9 TOKEN_L_SUB expr TOKEN_R_SUB
  		;
-
-boolean : TOKEN_TRUE
-		| TOKEN_FALSE
-		;
-
-for 	: TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN stmt
-		;
 
 opt_expr: /*no epxr*/
 		| expr
 		;
 
-return 	: TOKEN_RETURN stmt
-		;
-
-print 	: TOKEN_PRINT optionalArgList TOKEN_SEMICOLON
-		;
 
 %%
 
