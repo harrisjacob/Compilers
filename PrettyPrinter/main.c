@@ -6,7 +6,7 @@ extern int yyparse();
 
 int main( int argc, char *argv[] )
 {
-	if(argc > 1 && strcmp(argv[1], "-parse")==0){
+	if(argc > 1 && strcmp(argv[1], "-print")==0){
 		if(argc>2){
 			char* program = argv[2];
 			yyin = fopen(program,"r");
