@@ -56,6 +56,18 @@ for use by scanner.c.
 	%token TOKEN_BACKSLASH
 	%token TOKEN_ERROR
 
+	%union {
+	struct decl *decl;
+	struct stmt *stmt;
+	struct expr *expr;
+	struct type *type;
+	struct param_list *param_list;
+	};
+
+
+	%type <expr> expr literal boolean
+	%type <type> type
+
 %{
 
 #include <math.h>
@@ -85,37 +97,46 @@ decl_list: decl decl_list
 				$$ = $1; 
 			}
 		| /*epsilon*/
-			{
-				$$ = NULL;
-			}
+			{ $$ = NULL; }
 		;
 
 decl 	: TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMICOLON
-			{
-				$$ = decl_create($1, $3, NULL, NULL, NULL);
-			}
+			{ $$ = decl_create($1, $3, NULL, NULL, NULL); }
 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr TOKEN_SEMICOLON
+			{ $$ = decl_create($1, $3, $5, NULL, NULL); }
 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY stmtList TOKEN_R_CURLY
+			{ $$ = decl_create($1, $3, NULL, $6, NULL); }
 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_SEMICOLON
+			{ $$ = decl_create($1, $3, NULL, $6, NULL); }
 		;
 
 stmtList: stmt stmtList
-		| /*epsilon*/
 			{
-				$$ = NULL;
+				$1->next = $2;
+				$$ = $1;
 			}
+		| /*epsilon*/
+			{ $$ = NULL; }
 		;
 
 stmt 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt 															//if 1
+			{ $$ = stmt_create(STMT_IF_ELSE, NULL, NULL, $3, NULL, $5, NULL, NULL); }
 		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt 											//if 2
+			{ $$ = stmt_create(STMT_IF_ELSE, NULL, NULL, $3, NULL, $5, $7, NULL);}
 		| TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN stmt 	//for()stmt
+			{ $$ = stmt_create(STMT_FOR, NULL, $3, $5, $7, $9, NULL, NULL); }
 		| TOKEN_RETURN expr TOKEN_SEMICOLON 																		//return
+			{ $$ = stmt_create(STMT_RETURN, NULL, NULL, $2, NULL, NULL, NULL, NULL); }
 		| TOKEN_L_CURLY stmtList TOKEN_R_CURLY 																		//body
+			{ $$ = stmt_create(STMT_BLOCK, NULL, NULL, NULL, NULL, $2, NULL, NULL); }		
 		| TOKEN_PRINT optionalArgList TOKEN_SEMICOLON																//print
+			{ $$ = stmt_create(STMT_PRINT, NULL, NULL, NULL, NULL, $2, NULL, NULL); }		
 		| decl 																										// declaration
+			{ $$ = stmt_create(STMT_DECL, $1, NULL, NULL, NULL, NULL, NULL, NULL); }	
 		| expr TOKEN_SEMICOLON																						// regular statement
+			{ $$ = stmt_create(STMT_EXPR, NULL, NULL, $1, NULL, NULL, NULL, NULL); }	
 		;
-
+//inside must pass statements up
 inside 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside										//if3
 		| TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN inside	//for()stmt
 		| TOKEN_RETURN expr TOKEN_SEMICOLON																			//return
@@ -126,23 +147,30 @@ inside 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside				
 		;
 
 type 	: TOKEN_INTEGER
-			{ } 
+			{ $$ = type_create(TYPE_INTEGER, NULL, NULL); } 
 		| TOKEN_BOOLEAN
+			{ $$ = type_create(TYPE_BOOLEAN, NULL, NULL); }
 		| TOKEN_CHARACTER
+			{ $$ = type_create(TYPE_CHARACTER, NULL, NULL); }
 		| TOKEN_STRING
+			{ $$ = type_create(TYPE_STRING, NULL, NULL); }
 		| TOKEN_FUNCTION type TOKEN_L_PAREN fDefOpt TOKEN_R_PAREN
+			{ $$ = type_create(TYPE_FUNCTION, $2, $4); }
 		| TOKEN_ARRAY TOKEN_L_SUB expr TOKEN_R_SUB type
+			{ $$ = type_create(TYPE_ARRAY, $5, NULL); }
 		| TOKEN_ARRAY TOKEN_L_SUB TOKEN_R_SUB type
+			{ $$ = type_create(TYPE_ARRAY, $4, NULL); }
 		| TOKEN_VOID
+			{ $$ = type_create(TYPE_VOID, NULL, NULL);}
 		;
 
 
 literal : TOKEN_INTEGER_LITERAL
-			{ $$ = expr_create_integer_literal($1); }
+			{ $$ = expr_create_integer_literal(atoi(yytext)); }
 		| TOKEN_CHARACTER_LITERAL
-			{ $$ = expr_create_char_literal($1); }
+			{ $$ = expr_create_char_literal(yytext); }
 		| TOKEN_STRING_LITERAL
-			{ $$ = expr_create_string_literal($1); }
+			{ $$ = expr_create_string_literal(yytext); }
 		;
 
 boolean : TOKEN_TRUE
@@ -152,21 +180,34 @@ boolean : TOKEN_TRUE
 		;
 
 fDefOpt : /* epsilon */
+			{ $$ = NULL; }
 		| fDef
+			{ $$ = $1; }
 		;
 
 fDef 	: TOKEN_IDENTIFIER TOKEN_COLON type
+			{ $$ = decl_create($1, $3, NULL, NULL, NULL); }
 		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_COMMA fDef
+			{ $$ = decl_create($1, $3, NULL, NULL, $5); }
 		;
 
 optionalArgList	: /*no args*/
+					{ $$ = NULL; }
 				| argList
+					{ $$ = $1; }
 				;
 
-argList : expr
-		| expr TOKEN_COMMA argList
-		| TOKEN_L_CURLY argList TOKEN_R_CURLY
-		| TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_COMMA argList
+argList : expr 																			//expr
+			{ $$ = stmt_create(STMT_EXPR, NULL, NULL, $1, NULL, NULL, NULL, NULL); }
+		| expr TOKEN_COMMA argList 														// expr, expr, ...
+			{
+				$1 -> next = $3;
+				$$ = $1;
+			}
+		| TOKEN_L_CURLY argList TOKEN_R_CURLY 											// {expr,expr,...}
+			{ $$ = stmt_create(STMT_BLOCK, NULL, NULL, NULL, NULL, $2, NULL, NULL); }
+		| TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_COMMA argList 						// {{expr,expr...},{expr,expr...},...}
+			{ $$ = stmt_create(STMT_BLOCK, NULL, NULL, NULL, NULL, $2, NULL, $5); }
 		;
 
 expr	: TOKEN_IDENTIFIER TOKEN_ASSIGNMENT expr
@@ -219,6 +260,7 @@ expr8	: expr9 TOKEN_POST_INC
 expr9	: literal
 		| TOKEN_L_PAREN expr TOKEN_R_PAREN
 		| TOKEN_IDENTIFIER
+			{ $$ = yytext; }
 		| boolean
 		| index
 		| TOKEN_IDENTIFIER TOKEN_L_PAREN optionalArgList TOKEN_R_PAREN

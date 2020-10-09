@@ -96,7 +96,7 @@ struct expr * expr_create_string_literal( const char *str ){
 		return NULL;
 	}
 
-	newExpr-> string_literal = str;
+	newExpr-> string_literal = strdup(str);
 
 	return newExpr;
 }
