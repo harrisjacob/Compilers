@@ -1,0 +1,27 @@
+//If statements
+
+main: function integer () = {
+	if(x==4) x++;
+	else y++;
+
+	if(true){x++; y++; }
+	else{x=x-1;}
+
+	if(false) x++;
+
+	if(x!=1) x++; else{
+		y++;
+		c--;
+	}
+
+	if(true) if(false) y++; else x++;
+
+	if(x<y){
+		if(y<3){
+			if(x==m) y = 5; else m++;
+		}
+	}else{
+		x++;
+	}
+
+}

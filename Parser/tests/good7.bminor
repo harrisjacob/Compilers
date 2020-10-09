@@ -1,0 +1,7 @@
+//Arrays
+
+a: array [2] integer;
+a: array [5] integer = {1,2,3,4,5};
+names: array [3] string = {"Jake","John","Coffey"};
+my_array: array [2] array [2] integer = {{1,2}, {3,4}};
+arr: array [3] integer = {1, x+1, y%2};

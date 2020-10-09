@@ -1,0 +1,7 @@
+//Operation Precendence
+
+main: function integer () = {
+	z = (x+5/5)^2 % 5;
+	y = x(5) + 5;
+	b[5] = (4-new(5,"Hello")+123)++;
+}

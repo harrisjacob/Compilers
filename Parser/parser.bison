@@ -92,14 +92,14 @@ stmtList: stmt stmtList
 		| /*epsilon*/
 		;
 
-stmt 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt 														//if 1
-		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt 													//if 2
-		| TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN stmt //for()stmt
-		| TOKEN_RETURN expr TOKEN_SEMICOLON 																	//return
-		| TOKEN_L_CURLY stmtList TOKEN_R_CURLY 																	//body
-		| TOKEN_PRINT optionalArgList TOKEN_SEMICOLON															//print
-		| decl 																									// declaration
-		| expr TOKEN_SEMICOLON																					// regular statement
+stmt 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN stmt 															//if 1
+		| TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE stmt 											//if 2
+		| TOKEN_FOR TOKEN_L_PAREN opt_expr TOKEN_SEMICOLON opt_expr TOKEN_SEMICOLON opt_expr TOKEN_R_PAREN stmt 	//for()stmt
+		| TOKEN_RETURN expr TOKEN_SEMICOLON 																		//return
+		| TOKEN_L_CURLY stmtList TOKEN_R_CURLY 																		//body
+		| TOKEN_PRINT optionalArgList TOKEN_SEMICOLON																//print
+		| decl 																										// declaration
+		| expr TOKEN_SEMICOLON																						// regular statement
 		;
 
 inside 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside										//if3
@@ -145,6 +145,8 @@ optionalArgList	: /*no args*/
 
 argList : expr
 		| expr TOKEN_COMMA argList
+		| TOKEN_L_CURLY argList TOKEN_R_CURLY
+		| TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_COMMA argList
 		;
 
 expr	: TOKEN_IDENTIFIER TOKEN_ASSIGNMENT expr

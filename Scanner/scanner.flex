@@ -4,7 +4,7 @@
 DIGIT  [0-9]
 LETTER [a-zA-Z]
 %%
-(" "|\t|\n)  /* skip whitespace */
+(" "|\t|\n|\r)  /* skip whitespace */
 <<EOF>>                                         { return TOKEN_EOF; }
 array											{ return TOKEN_ARRAY; }
 else	    									{ return TOKEN_ELSE; }

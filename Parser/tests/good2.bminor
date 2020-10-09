@@ -1,0 +1,26 @@
+//For loops
+
+main: function integer () = {
+
+	for(x=5;x<M;x++){
+		y++;
+	}
+
+	for(;x<M;x++){
+		y++;
+	}
+
+	for(x=5;;x++){
+		y++;
+	}
+
+	for(x=5;x<M;){
+		y++;
+	}
+
+	for(;;){
+		y++;
+	}
+
+	for(x=5;x<M;x++) i++;
+}
