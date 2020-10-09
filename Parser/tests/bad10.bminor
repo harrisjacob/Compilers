@@ -1,0 +1,19 @@
+//If statements: if must have one statement when the condition is true
+
+main: function integer () = {
+	if(x==4) x++;
+	else y++;
+
+	if(true){x++; y++; }
+	else{x=x-1;}
+
+	if(false) x++;
+
+	if(x!=1) x++; else{
+		y++;
+		c--;
+	}
+
+	if(true) if(false) else x++;
+
+}

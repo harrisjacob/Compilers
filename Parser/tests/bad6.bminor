@@ -1,0 +1,14 @@
+//conditionals and assignments: if conditions cannot be statments
+
+main: function integer () = {
+	
+	if(x<5) y=3;
+	if(y>4) z=3;
+	if(m<=3) m=3;
+	if(x>=3) z=3;
+	if(z==4) me=4;
+	if(m!=7) you=4;
+	if(x;) y++;
+	if( x > 5 || true ) y++;
+	if( m%3 == 0 ) print "Hello";
+}

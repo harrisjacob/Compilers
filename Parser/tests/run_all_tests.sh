@@ -15,8 +15,8 @@ for testfile in bad*.bminor
 do
 	if ../bminor -parse $testfile
 	then
-		echo "$testfile success (INCORRECT)"
+		echo "$testfile success (INCORRECT)\n"
 	else
-		echo "$testfile failure (as expected)"
+		echo "$testfile failure (as expected)\n"
 	fi
 done

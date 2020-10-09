@@ -21,7 +21,6 @@ int main( int argc, char *argv[] )
 				return 0;
 			} else {
 				printf("Parse failed.\n");
-				printf("Error: %d\n", res);
 				return 1;
 			}
 

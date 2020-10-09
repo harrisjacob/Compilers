@@ -1,0 +1,17 @@
+//For loops: Loops cannot have comma separated arguments
+
+main: function integer () = {
+
+	for(x=5;x<M;x++){
+		y++;
+	}
+
+	for(;x<M;x++){
+		y++;
+	}
+
+	for(x=5;x=5;x=5, y=5){
+		y++;
+	}
+
+}

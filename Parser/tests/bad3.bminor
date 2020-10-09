@@ -1,0 +1,9 @@
+//indexing: Indexes must have a expr value
+
+main: function integer () = {
+	a[5]++;
+	if(x[1][4]==true) return true;
+	x = alpha[][5] + beta[5][2];
+	a[4] = "Hello\n";
+	b[4][3] = 7;
+}
