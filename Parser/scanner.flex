@@ -34,7 +34,7 @@ string 											{ return TOKEN_STRING; }
 \*    											{ return TOKEN_MULT; }
 \/    											{ return TOKEN_DIVIDE; }
 %    											{ return TOKEN_MOD; }
-(\/\/[^(\r\n)]*\r\n|\/\*[^(\*\/)]*\*\/)
+((\/\/[^(\r\n)]*\r\n)|\/\*[^(\*\/)]*\*\/)
 \<    											{ return TOKEN_LT; }
 \<=   											{ return TOKEN_LE; }
 >    											{ return TOKEN_GT; }
