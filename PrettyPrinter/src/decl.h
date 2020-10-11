@@ -6,6 +6,7 @@
 #include "stmt.h"
 #include "expr.h"
 #include <stdio.h>
+#include <string.h>
 
 struct decl {
 	char *name;
@@ -23,7 +24,7 @@ struct decl * decl_create( char *name, struct type *type, struct expr *value, st
 		return NULL;
 	}
 
-	newDecl->name = name;
+	newDecl->name = strdup(name);
 	newDecl->type = type;
 	newDecl->value = value;
 	newDecl->code = code;

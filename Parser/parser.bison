@@ -82,10 +82,10 @@ decl_list: decl decl_list
 		| /*epsilon*/
 		;
 
-decl 	: TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMICOLON
-		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT expr TOKEN_SEMICOLON
-		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY stmtList TOKEN_R_CURLY
-		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_SEMICOLON
+decl 	: id TOKEN_COLON type TOKEN_SEMICOLON
+		| id TOKEN_COLON type TOKEN_ASSIGNMENT expr TOKEN_SEMICOLON
+		| id TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY stmtList TOKEN_R_CURLY
+		| id TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY bracList TOKEN_R_CURLY TOKEN_SEMICOLON
 		;
 
 stmtList: stmt stmtList
@@ -135,8 +135,8 @@ fDefOpt : /* epsilon */
 		| fDef
 		;
 
-fDef 	: TOKEN_IDENTIFIER TOKEN_COLON type
-		| TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_COMMA fDef
+fDef 	: id TOKEN_COLON type
+		| id TOKEN_COLON type TOKEN_COMMA fDef
 		;
 
 optionalArgList	: /*no args*/
@@ -145,11 +145,14 @@ optionalArgList	: /*no args*/
 
 argList : expr
 		| expr TOKEN_COMMA argList
-		| TOKEN_L_CURLY argList TOKEN_R_CURLY
-		| TOKEN_L_CURLY argList TOKEN_R_CURLY TOKEN_COMMA argList
 		;
 
-expr	: TOKEN_IDENTIFIER TOKEN_ASSIGNMENT expr
+bracList: argList 
+		| TOKEN_L_CURLY bracList TOKEN_R_CURLY
+		| TOKEN_L_CURLY bracList TOKEN_R_CURLY TOKEN_COMMA bracList
+		;
+
+expr	: id TOKEN_ASSIGNMENT expr
 		| index TOKEN_ASSIGNMENT expr
 		| expr1
 		;
@@ -198,10 +201,13 @@ expr8	: expr9 TOKEN_POST_INC
 
 expr9	: literal
 		| TOKEN_L_PAREN expr TOKEN_R_PAREN
-		| TOKEN_IDENTIFIER
+		| id
 		| boolean
 		| index
-		| TOKEN_IDENTIFIER TOKEN_L_PAREN optionalArgList TOKEN_R_PAREN
+		| id TOKEN_L_PAREN optionalArgList TOKEN_R_PAREN
+		;
+
+id 		: TOKEN_IDENTIFIER
 		;
 
 index	: expr9 TOKEN_L_SUB expr TOKEN_R_SUB
