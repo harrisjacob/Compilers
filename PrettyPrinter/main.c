@@ -1,9 +1,12 @@
-#include<string.h>
+#include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "decl.h"
+
 
 extern FILE *yyin;
 extern int yyparse();
-
+struct decl* program_output = NULL;
 int main( int argc, char *argv[] )
 {
 	if(argc > 1 && strcmp(argv[1], "-print")==0){
@@ -16,13 +19,14 @@ int main( int argc, char *argv[] )
 			}
 
 			int res;
-			if(!(res=yyparse())) {
-				printf("Parse successful!\n");
-				return 0;
-			} else {
+			if((res=yyparse())) {
 				printf("Parse failed.\n");
 				return 1;
 			}
+
+			int indent = 0;
+			struct decl* declaration = program_output;
+			if(program_output) decl_print(program_output);
 
 		}
 
