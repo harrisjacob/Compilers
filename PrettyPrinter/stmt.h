@@ -29,5 +29,7 @@ struct stmt * stmt_create( stmt_t kind, struct decl *decl, struct expr *init_exp
 
 void stmt_print( struct stmt *s, int indent );
 
+void print_tabs(int indent);
+
 
 #endif

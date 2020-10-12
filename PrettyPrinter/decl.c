@@ -17,8 +17,10 @@ struct decl * decl_create( char *name, struct type *type, struct expr *value, st
 
 }
 
-void decl_print( struct decl *d, int indent ){
+void decl_print( struct decl *d, int indent){
 	if(!d) return;
+	int i;
+	for(i=0;i<indent;i++,printf("\t"));
 	printf("%s: ", d->name);
 	type_print(d->type);
 	if(d->value){
@@ -26,9 +28,9 @@ void decl_print( struct decl *d, int indent ){
 		expr_print(d->value);
 	}
 	if(d->code){
-		printf("= {");
-		stmt_print(d->code, indent);
-		printf("}");
+		printf(" = {\n");
+		stmt_print(d->code, indent+1);
+		printf("}\n");
 	}
 	decl_print(d->next, indent);
 }
