@@ -24,7 +24,7 @@ void type_print( struct type *t ){
 	}else if(t->kind == TYPE_FUNCTION){
 		type_print(t->subtype);
 		printf("( ");
-		param_list_print(t->param_list);
+		param_list_print(t->params);
 		printf(")");
 	}
 }
@@ -38,6 +38,8 @@ char* getType(type_t t){
 		case TYPE_STRING: return "string";
 		case TYPE_ARRAY: return "array";
 		case TYPE_FUNCTION: return "function";
-		default: return NULL;
+		default:
+			printf("Something broke in type\n"); 
+			return NULL;
 	}
 }

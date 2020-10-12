@@ -2,6 +2,7 @@
 #define TYPE_H
 #include <stdlib.h>
 #include <stdio.h>
+#include "param_list.h"
 
 
 typedef enum {

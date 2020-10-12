@@ -25,8 +25,7 @@ int main( int argc, char *argv[] )
 			}
 
 			int indent = 0;
-			struct decl* declaration = program_output;
-			if(program_output) decl_print(program_output);
+			if(program_output) decl_print(program_output, indent);
 
 		}
 

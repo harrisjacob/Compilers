@@ -69,8 +69,10 @@ void stmt_print( struct stmt *s, int indent ){
 			stmt_print(s->body, indent);
 			printf("\n}");
 			break;
-		default: return;
+		default: 
+			printf("Something broke in stmt\n");
+			return;
 
 	}
-	stmt_print(s->next);
+	stmt_print(s->next, indent);
 }
