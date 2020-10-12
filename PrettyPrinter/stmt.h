@@ -31,5 +31,7 @@ void stmt_print( struct stmt *s, int indent );
 
 void print_tabs(int indent);
 
+void print_body(struct stmt* s, int indent);
+
 
 #endif

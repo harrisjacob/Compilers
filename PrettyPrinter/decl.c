@@ -24,13 +24,16 @@ void decl_print( struct decl *d, int indent){
 	printf("%s: ", d->name);
 	type_print(d->type);
 	if(d->value){
-		printf("=");
+		printf(" = ");
 		expr_print(d->value);
 	}
+	
 	if(d->code){
 		printf(" = {\n");
 		stmt_print(d->code, indent+1);
 		printf("}\n");
+	}else{
+		printf(";\n");
 	}
 	decl_print(d->next, indent);
 }

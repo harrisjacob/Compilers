@@ -174,7 +174,7 @@ void expr_print( struct expr *e ){
 			printf("%c", (char) e->literal_value);
 			break;
 		case EXPR_STRING_LIT:
-			printf("%s", e->string_literal);
+			printf("\"%s\"", e->string_literal);
 			break;
 		default: 
 			printf("Something broke in expr\n");
@@ -189,3 +189,4 @@ void expr_operator(char* oper, struct expr* a, struct expr* b){
 	printf("%s", oper);
 	expr_print(b);
 }
+

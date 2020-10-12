@@ -17,13 +17,14 @@ struct type * type_create( type_t kind, struct type *subtype, struct param_list 
 
 void type_print( struct type *t ){
 	if(!t) return;
-	printf("%s ", getType(t->kind));
+	printf("%s", getType(t->kind));
 	if(t->kind == TYPE_ARRAY){
 		printf("[] ");
 		type_print(t->subtype);
 	}else if(t->kind == TYPE_FUNCTION){
+		printf(" ");
 		type_print(t->subtype);
-		printf("( ");
+		printf("(");
 		param_list_print(t->params);
 		printf(")");
 	}

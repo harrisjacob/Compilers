@@ -24,7 +24,6 @@ void stmt_print( struct stmt *s, int indent ){
 	if(!s) return;
 	switch(s->kind){
 		case STMT_DECL:
-			print_tabs(indent);
 			decl_print(s->decl, indent);
 			break;
 		case STMT_EXPR:
@@ -37,11 +36,11 @@ void stmt_print( struct stmt *s, int indent ){
 			expr_print(s->expr);
 			printf(") {\n");
 			//Read one pointer into the block so that if-else handles tabs for its body
-			if(s->body && s->body->kind == STMT_BLOCK)stmt_print(s->body->body, indent+1);
+			print_body(s->body, indent);
 			//stmt_print(s->body, indent);
 			print_tabs(indent);
 			printf("} else {\n");
-			if(s->else_body && s->else_body->kind == STMT_BLOCK)stmt_print(s->else_body->body, indent+1);
+			print_body(s->else_body, indent);
 			print_tabs(indent);
 			printf("}\n");
 			//stmt_print(s->else_body, indent);
@@ -54,21 +53,23 @@ void stmt_print( struct stmt *s, int indent ){
 			expr_print(s->expr);
 			printf(";");
 			expr_print(s->next_expr);
-			printf(")");
-			stmt_print(s->body, indent+2);
+			printf(") {\n");
+			print_body(s->body, indent);
+			print_tabs(indent);
+			printf("}\n");
 			break;
 		case STMT_PRINT:
 			print_tabs(indent);
 			printf("print ");
 			if(s->expr){
 				struct expr *t = s->expr;
-				expr_print(t);
-				while(t->right){
-					printf(", ");
+				while(t){
 					expr_print(t);
+					if(t->right)printf(", ");
 					t = t->right;
 				}
 			}
+			printf(";\n");
 			break;
 		case STMT_RETURN:
 			print_tabs(indent);
@@ -95,4 +96,13 @@ void stmt_print( struct stmt *s, int indent ){
 void print_tabs(int indent){
 	int i;
 	for(i=0;i<indent;i++,printf("\t"));
+}
+
+void print_body(struct stmt* s, int indent){
+	if(!s) return;
+	if(s->kind == STMT_BLOCK){
+		stmt_print(s->body, indent+1);
+	}else{
+		stmt_print(s, indent+1);
+	}
 }
