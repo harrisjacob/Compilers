@@ -29,6 +29,7 @@ void stmt_print( struct stmt *s, int indent ){
 		case STMT_EXPR:
 			print_tabs(indent);
 			expr_print(s->expr);
+			printf(";\n");
 			break;
 		case STMT_IF_ELSE:
 			print_tabs(indent);
@@ -39,10 +40,16 @@ void stmt_print( struct stmt *s, int indent ){
 			print_body(s->body, indent);
 			//stmt_print(s->body, indent);
 			print_tabs(indent);
-			printf("} else {\n");
-			print_body(s->else_body, indent);
-			print_tabs(indent);
-			printf("}\n");
+			printf("}");
+			if(s->else_body){
+				printf(" else {\n");
+				print_body(s->else_body, indent);
+				print_tabs(indent);
+				printf("}\n");
+			}else{
+				printf("\n");
+			}
+
 			//stmt_print(s->else_body, indent);
 			break;
 		case STMT_FOR:
@@ -84,6 +91,23 @@ void stmt_print( struct stmt *s, int indent ){
 			printf("\n");
 			print_tabs(indent);
 			printf("}\n");
+			break;
+		case STMT_LIST:
+			printf("{");
+			if(s->expr){
+				struct expr* e = s->expr;
+				while(e){
+					expr_print(e);
+					if(e->right){
+						printf(",");
+						}
+					e = e->right;
+				}
+				
+			}else if(s->body){
+				stmt_print(s->body, indent);
+			}
+			printf("}");
 			break;
 		default: 
 			printf("Something broke in stmt\n");

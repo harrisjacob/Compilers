@@ -64,7 +64,6 @@ struct expr * expr_create_char_literal( char c ){
 		printf("AST: Failed to allocate expr structure");
 		return NULL;
 	}
-
 	newExpr->literal_value = (int) c;
 	newExpr->kind = EXPR_CHAR_LIT;
 
@@ -168,10 +167,10 @@ void expr_print( struct expr *e ){
 			printf("%i", e->literal_value);
 			break;
 		case EXPR_BOOL_LIT:
-			printf("%s", (e->literal_value) ? "TRUE" : "FALSE" );
+			printf("%s", (e->literal_value) ? "true" : "false" );
 			break;
 		case EXPR_CHAR_LIT:
-			printf("%c", (char) e->literal_value);
+			printf("\'%c\'", ((char) e->literal_value));
 			break;
 		case EXPR_STRING_LIT:
 			printf("\"%s\"", e->string_literal);

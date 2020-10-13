@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "param_list.h"
+#include "expr.h"
 
 
 typedef enum {
@@ -19,9 +20,10 @@ struct type {
 	type_t kind;
 	struct param_list *params;
 	struct type *subtype;
+	struct expr* array_len;
 };
 
-struct type * type_create( type_t kind, struct type *subtype, struct param_list *params );
+struct type * type_create( type_t kind, struct type *subtype, struct param_list *params, struct expr* array_len);
 
 void          type_print( struct type *t );
 

@@ -161,28 +161,32 @@ inside 	: TOKEN_IF TOKEN_L_PAREN expr TOKEN_R_PAREN inside TOKEN_ELSE inside				
 		;
 
 type 	: TOKEN_INTEGER
-			{ $$ = type_create(TYPE_INTEGER, NULL, NULL); } 
+			{ $$ = type_create(TYPE_INTEGER, NULL, NULL, NULL); } 
 		| TOKEN_BOOLEAN
-			{ $$ = type_create(TYPE_BOOLEAN, NULL, NULL); }
+			{ $$ = type_create(TYPE_BOOLEAN, NULL, NULL, NULL); }
 		| TOKEN_CHARACTER
-			{ $$ = type_create(TYPE_CHARACTER, NULL, NULL); }
+			{ $$ = type_create(TYPE_CHARACTER, NULL, NULL, NULL); }
 		| TOKEN_STRING
-			{ $$ = type_create(TYPE_STRING, NULL, NULL); }
+			{ $$ = type_create(TYPE_STRING, NULL, NULL, NULL); }
 		| TOKEN_FUNCTION type TOKEN_L_PAREN fDefOpt TOKEN_R_PAREN
-			{ $$ = type_create(TYPE_FUNCTION, $2, $4); }
+			{ $$ = type_create(TYPE_FUNCTION, $2, $4, NULL); }
+
+
 		| TOKEN_ARRAY TOKEN_L_SUB expr TOKEN_R_SUB type
-			{ $$ = type_create(TYPE_ARRAY, $5, NULL); }
+			{ $$ = type_create(TYPE_ARRAY, $5, NULL, $3); }
+
+
 		| TOKEN_ARRAY TOKEN_L_SUB TOKEN_R_SUB type
-			{ $$ = type_create(TYPE_ARRAY, $4, NULL); }
+			{ $$ = type_create(TYPE_ARRAY, $4, NULL, NULL); }
 		| TOKEN_VOID
-			{ $$ = type_create(TYPE_VOID, NULL, NULL);}
+			{ $$ = type_create(TYPE_VOID, NULL, NULL, NULL);}
 		;
 
 
 literal : TOKEN_INTEGER_LITERAL
 			{ $$ = expr_create_integer_literal(atoi(yytext)); }
 		| TOKEN_CHARACTER_LITERAL
-			{ $$ = expr_create_char_literal(atoi(yytext)); }
+			{ $$ = expr_create_char_literal(yytext[0]); }
 		| TOKEN_STRING_LITERAL
 			{ $$ = expr_create_string_literal(yytext); }
 		;
@@ -221,11 +225,11 @@ argList : expr 																			//expr
 		;
 //Returns a statement
 bracList: argList
-			{ $$ = stmt_create(STMT_EXPR, NULL, NULL, $1, NULL, NULL, NULL, NULL); }
+			{ $$ = stmt_create(STMT_LIST, NULL, NULL, $1, NULL, NULL, NULL, NULL); }
 		| TOKEN_L_CURLY bracList TOKEN_R_CURLY
-			{ $$ = stmt_create(STMT_BLOCK, NULL, NULL, NULL, NULL, $2, NULL, NULL); }
+			{ $$ = stmt_create(STMT_LIST, NULL, NULL, NULL, NULL, $2, NULL, NULL); }
 		| TOKEN_L_CURLY bracList TOKEN_R_CURLY TOKEN_COMMA bracList
-			{ $$ = stmt_create(STMT_BLOCK, NULL, NULL, NULL, NULL, $2, NULL, $5); }
+			{ $$ = stmt_create(STMT_LIST, NULL, NULL, NULL, NULL, $2, NULL, $5); }
 		;
 
 

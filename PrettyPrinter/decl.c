@@ -26,14 +26,22 @@ void decl_print( struct decl *d, int indent){
 	if(d->value){
 		printf(" = ");
 		expr_print(d->value);
+	} else if(d->code){
+		if(d->code->kind!=STMT_LIST){
+			printf(" = {\n");
+			stmt_print(d->code, indent+1);
+			printf("}\n");
+		}else{
+			printf(" = ");
+			stmt_print(d->code, indent+1);
+		}
 	}
-	
-	if(d->code){
-		printf(" = {\n");
-		stmt_print(d->code, indent+1);
-		printf("}\n");
-	}else{
+
+	if(!(d->code && d->code->kind!=STMT_LIST)){
 		printf(";\n");
 	}
+	
+	
+
 	decl_print(d->next, indent);
 }
