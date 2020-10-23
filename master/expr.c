@@ -134,114 +134,86 @@ void expr_print( struct expr *e ){
 			printf("[");
 			check_parens(e_Class0, e->right, 1);
 			printf("]");
-			//expr_print(e->left);
-			//printf("[");
-			//expr_print(e->right);
-			//printf("]");
 			break;
 		case EXPR_PAREN:
 			check_parens(e_Class0, e->inner, 1);
-			// printf("(");
-			// expr_print(e->inner);
-			// printf(")");
 			break;
 		case EXPR_FUNC:
 			check_parens(e_Class0, e->left, 0); //Always break parens around a function
 			printf("(");
 			check_parens(e_Class0, e->right, 1);
 			printf(")");
-			// expr_print(e->left);
-			// printf("(");
-			// expr_print(e->right);
-			// printf(")");
 			break;
 		case EXPR_POST_INC:
 			check_parens(expr_get_class(EXPR_POST_INC), e->left, 0);
-			//check_left_parens(e->kind, e->right, );
-			//expr_print(e->right);
 			printf("++");
 			break;
 		case EXPR_POST_DEC:
 			check_parens(expr_get_class(EXPR_POST_DEC), e->left, 0);
-			//check_left_parens(e->kind, e->right);
-			//expr_print(e->right);
 			printf("--");
 			break;
 		case EXPR_NEG:
 			printf("-");
 			check_parens(expr_get_class(EXPR_NEG), e->right, 0);
-			//expr_print(e->right);
 			break;
 		case EXPR_NOT:
 			printf("!");
 			check_parens(expr_get_class(EXPR_NOT), e->right, 0);
-			//expr_print(e->right);
 			break;
 		case EXPR_EXP:
 			check_parens(expr_get_class(EXPR_EXP), e->left, 0);
 			printf("^");
 			check_parens(expr_get_class(EXPR_EXP), e->right, 1);
-			//expr_operator("^", e);
 			break;
 		case EXPR_MOD:
 			check_parens(expr_get_class(EXPR_MOD), e->left, 0);
 			printf("%c", '%');
 			check_parens(expr_get_class(EXPR_MOD), e->right, 1);
-			//expr_operator("%", e);
 			break;
 		case EXPR_LT:
 			check_parens(expr_get_class(EXPR_LT), e->left, 0);
 			printf("<");
 			check_parens(expr_get_class(EXPR_LT), e->right, 1);
-			//expr_operator("<", e);
 			break;
 		case EXPR_LE:
 			check_parens(expr_get_class(EXPR_LE), e->left, 0);
 			printf("<=");
 			check_parens(expr_get_class(EXPR_LE), e->right, 1);	
-			//expr_operator("<=", e);
 			break;
 		case EXPR_GT:
 			check_parens(expr_get_class(EXPR_GT), e->left, 0);
 			printf(">");
 			check_parens(expr_get_class(EXPR_GT), e->right, 1);
-			//expr_operator(">", e);
 			break;
 		case EXPR_GE:
 			check_parens(expr_get_class(EXPR_GE), e->left, 0);
 			printf(">=");
 			check_parens(expr_get_class(EXPR_GE), e->right, 1);
-			//expr_operator(">=", e);
 			break;
 		case EXPR_EQ:
 			check_parens(expr_get_class(EXPR_EQ), e->left, 0);
 			printf("==");
 			check_parens(expr_get_class(EXPR_EQ), e->right, 1);
-			//expr_operator("==", e);
 			break;
 		case EXPR_NEQ:
 			check_parens(expr_get_class(EXPR_NEQ), e->left, 0);
 			printf("!=");
 			check_parens(expr_get_class(EXPR_NEQ), e->right, 1);
-			//expr_operator("!=", e);
 			break;
 		case EXPR_AND:
 			check_parens(expr_get_class(EXPR_AND), e->left, 0);
 			printf("&&");
 			check_parens(expr_get_class(EXPR_AND), e->right, 1);
-			//expr_operator("&&", e);
 			break;
 		case EXPR_OR:
 			check_parens(expr_get_class(EXPR_OR), e->left, 0);
 			printf("||");
 			check_parens(expr_get_class(EXPR_OR), e->right, 1);
-			//expr_operator("||", e);
 			break;
 		case EXPR_ASSIGN:
 			check_parens(expr_get_class(EXPR_ASSIGN), e->left, 0);
 			printf("=");
 			check_parens(expr_get_class(EXPR_ASSIGN), e->right, 1);
-			//expr_operator("=", e);
 			break;
 		case EXPR_ID:
 			printf("%s", e->name);
@@ -256,13 +228,11 @@ void expr_print( struct expr *e ){
 			printf("\'");
 			expr_char_print((char) e->literal_value);
 			printf("\'");
-			//printf("\'%c\'", ((char) e->literal_value));
 			break;
 		case EXPR_STRING_LIT:
 			printf("\"");
 			expr_string_print(e->string_literal);
 			printf("\"");
-			//printf("\"%s\"", e->string_literal);
 			break;
 		case EXPR_ARRAY_LIT:
 			printf("{");
@@ -282,10 +252,10 @@ void expr_print( struct expr *e ){
 }
 
 void check_parens(expr_class p_OP, struct expr *f, int rArg){
-	if(!f){
+	if(!f){											//Null recursive base case
 		printf("Returning null\n");
 		return;
-	} //return;									//Null recursive base case
+	}												
 	if(f->kind != EXPR_PAREN){						//Defined recursive base case
 		return expr_print(f);						//Print the inner most expression
 	}
@@ -311,13 +281,6 @@ void check_parens(expr_class p_OP, struct expr *f, int rArg){
 			printf(")");
 		}
 	}
-
-	// 	if(p_OP < f->inner->kind){						//If the called operator has lower precedence than the right operator
-// 		check_right_parens(p_OP, f->inner);			//the right parens may not be needed, recursively check
-// 	}else{
-// 		expr_print(f->inner);						//The operator has lower precedence, no parenthesis are needed 
-// 	}
-// }
 }
 
 expr_class expr_get_class(expr_t e){
@@ -375,52 +338,3 @@ void expr_char_print(char c){
 			printf("%c", c);
 	}
 }
-
-
-// void expr_operator(char* oper, struct expr* e){
-// 	check_left_parens(e->kind, e->left); 			//Check left item
-// 	printf("%s", oper);								//Print operator between items
-// 	check_right_parens(e->kind, e->right);			//Check right item
-// }
-
-// void check_right_parens(expr_t p_OP, struct expr *f){
-
-// 	if(!f) return;									//Null recursive base case
-// 	if(f->kind != EXPR_PAREN){						//Defined recursive base case
-// 		expr_print(f);								//Print the inner most expression
-// 		return;
-// 	}
-
-// 	//Every f at this point must be of type EXPR_PARENS and will have a defined inner field
-
-// 	if(p_OP < f->inner->kind){						//If the called operator has lower precedence than the right operator
-// 		check_right_parens(p_OP, f->inner);			//the right parens may not be needed, recursively check
-// 	}else{
-// 		expr_print(f->inner);						//The operator has lower precedence, no parenthesis are needed 
-// 	}
-// }
-
-// void check_left_parens(expr_t p_OP, struct expr *f){
-
-// 	if(!f) return;									//Null recursive base case
-// 	if(f->kind != EXPR_PAREN){						//Defined recursive base case
-// 		return expr_print(f);						//Print the inner most expression
-// 	}
-
-// 	//Every f at this point must be of type EXPR_PARENS and will have a defined inner field
-
-// 	if(f->inner->kind==EXPR_PAREN) return check_left_parens(p_OP, f->inner); //Handles embedded parenthesis
-	
-// 	//Every f at this point must be of type EXPR_PARENS with a non EXPR_PARENS expression inside
-
-// 	if(p_OP > f->inner->kind){						//If the called operator has higher precedence than the left operator
-// 		printf("(x");
-// 		expr_print(f->inner);
-// 		printf("x)");								
-// 	}else{
-// 		expr_print(f->inner);
-// 		//check_left_parens(p_OP, f->inner);
-// 	}
-// }
-
-//Combine expression check into a single funciton

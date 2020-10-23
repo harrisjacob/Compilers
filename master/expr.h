@@ -52,7 +52,6 @@ typedef enum {
 	EXPR_CHAR_LIT,
 	EXPR_STRING_LIT,
 	EXPR_ARRAY_LIT
-	/* many more kinds of exprs to add here */
 } expr_t;
 
 struct expr {
@@ -93,11 +92,5 @@ expr_class expr_get_class(expr_t e);
 void expr_string_print(const char* s);
 
 void expr_char_print(char c);
-
-// void expr_operator(char* oper, struct expr* e);
-
-// void check_right_parens(expr_t p_OP, struct expr *f);
-
-// void check_left_parens(expr_t p_OP, struct expr *f);
 
 #endif

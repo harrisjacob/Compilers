@@ -38,7 +38,6 @@ void stmt_print( struct stmt *s, int indent ){
 			printf(") {\n");
 			//Read one pointer into the block so that if-else handles tabs for its body
 			print_body(s->body, indent);
-			//stmt_print(s->body, indent);
 			print_tabs(indent);
 			printf("}");
 			if(s->else_body){
@@ -50,7 +49,6 @@ void stmt_print( struct stmt *s, int indent ){
 				printf("\n");
 			}
 
-			//stmt_print(s->else_body, indent);
 			break;
 		case STMT_FOR:
 			print_tabs(indent);
@@ -95,19 +93,6 @@ void stmt_print( struct stmt *s, int indent ){
 		case STMT_LIST:
 			printf("{");
 			expr_print(s->expr);
-			// if(s->expr){
-			// 	struct expr* e = s->expr;
-			// 	while(e){
-			// 		expr_print(e);
-			// 		if(e->next){
-			// 			printf(",");
-			// 			}
-			// 		e = e->next;
-			// 	}
-				
-			// }else if(s->body){
-			// 	stmt_print(s->body, indent);
-			// }
 			printf("}");
 			break;
 		default: 
