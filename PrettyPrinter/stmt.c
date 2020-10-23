@@ -94,19 +94,20 @@ void stmt_print( struct stmt *s, int indent ){
 			break;
 		case STMT_LIST:
 			printf("{");
-			if(s->expr){
-				struct expr* e = s->expr;
-				while(e){
-					expr_print(e);
-					if(e->right){
-						printf(",");
-						}
-					e = e->right;
-				}
+			expr_print(s->expr);
+			// if(s->expr){
+			// 	struct expr* e = s->expr;
+			// 	while(e){
+			// 		expr_print(e);
+			// 		if(e->next){
+			// 			printf(",");
+			// 			}
+			// 		e = e->next;
+			// 	}
 				
-			}else if(s->body){
-				stmt_print(s->body, indent);
-			}
+			// }else if(s->body){
+			// 	stmt_print(s->body, indent);
+			// }
 			printf("}");
 			break;
 		default: 

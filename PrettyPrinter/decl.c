@@ -29,7 +29,15 @@ void decl_print( struct decl *d, int indent){
 	} else if(d->code){
 		if(d->code->kind!=STMT_LIST){
 			printf(" = {\n");
+			// if(d->code->kind == STMT_EXPR && d->code->expr && d->code->expr->kind == EXPR_ARRAY_LIT){
+			// 	printf("(");
+			// 	expr_print(d->code->expr);
+			// 	//need a print for first item with diff token
+			// 	printf(")");
+			// }else{
 			stmt_print(d->code, indent+1);
+			// }
+			
 			printf("}\n");
 		}else{
 			printf(" = ");

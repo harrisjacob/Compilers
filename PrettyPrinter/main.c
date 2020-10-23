@@ -34,3 +34,8 @@ int main( int argc, char *argv[] )
 	return 0;
 }
 
+/*
+void check_paren(struct expr** e){
+	if((*e)->kind==EXPR_PAREN) (*e)=(*e)->next;
+}
+*/
