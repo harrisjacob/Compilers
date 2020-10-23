@@ -192,7 +192,8 @@ literal : TOKEN_INTEGER_LITERAL
 		| TOKEN_STRING_LITERAL
 			{ $$ = expr_create_string_literal(yytext); }
 		| TOKEN_L_CURLY arrayLit TOKEN_R_CURLY
-			{ $$ = expr_create(EXPR_ARRAY_LIT, 0, 0, $2); }
+			{ $$ = expr_create_paren(EXPR_ARRAY_LIT, $2, NULL); } 
+			//$$ = expr_create(EXPR_ARRAY_LIT, 0, 0, $2); }
 		;
 
 arrayLit: expr

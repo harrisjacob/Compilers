@@ -262,7 +262,7 @@ void expr_print( struct expr *e ){
 			printf("{");
 			expr_print(e->inner);
 			printf("}");
-			return;
+			break;
 		default: 
 			printf("Something broke in expr\n");
 			return;		

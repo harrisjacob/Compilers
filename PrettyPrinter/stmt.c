@@ -85,9 +85,9 @@ void stmt_print( struct stmt *s, int indent ){
 			printf(";\n");
 			break;
 		case STMT_BLOCK:
-			printf("{\n");
 			print_tabs(indent);
-			stmt_print(s->body, indent);
+			printf("{\n");
+			stmt_print(s->body, indent+1);
 			printf("\n");
 			print_tabs(indent);
 			printf("}\n");
