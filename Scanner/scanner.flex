@@ -1,8 +1,9 @@
 %{
-#include "token.h"
+#include "parser.h"
 %}
 DIGIT  [0-9]
 LETTER [a-zA-Z]
+NEWLINE (\n|\r|\n\r|\r\n)
 %%
 (" "|\t|\n|\r)  /* skip whitespace */
 <<EOF>>                                         { return TOKEN_EOF; }
@@ -34,7 +35,7 @@ string 											{ return TOKEN_STRING; }
 \*    											{ return TOKEN_MULT; }
 \/    											{ return TOKEN_DIVIDE; }
 %    											{ return TOKEN_MOD; }
-(\/\/[^(\r\n)]*\r\n|\/\*[^(\*\/)]*\*\/)
+((\/\/.*\n)|(\/\*(.|\n)*?\*\/))
 \<    											{ return TOKEN_LT; }
 \<=   											{ return TOKEN_LE; }
 >    											{ return TOKEN_GT; }
