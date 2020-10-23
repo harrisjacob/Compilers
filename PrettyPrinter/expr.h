@@ -90,6 +90,10 @@ void check_parens(expr_class p_OP, struct expr *f, int rArg);
 
 expr_class expr_get_class(expr_t e);
 
+void expr_string_print(const char* s);
+
+void expr_char_print(char c);
+
 // void expr_operator(char* oper, struct expr* e);
 
 // void check_right_parens(expr_t p_OP, struct expr *f);

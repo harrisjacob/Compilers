@@ -253,10 +253,16 @@ void expr_print( struct expr *e ){
 			printf("%s", (e->literal_value) ? "true" : "false" );
 			break;
 		case EXPR_CHAR_LIT:
-			printf("\'%c\'", ((char) e->literal_value));
+			printf("\'");
+			expr_char_print((char) e->literal_value);
+			printf("\'");
+			//printf("\'%c\'", ((char) e->literal_value));
 			break;
 		case EXPR_STRING_LIT:
-			printf("\"%s\"", e->string_literal);
+			printf("\"");
+			expr_string_print(e->string_literal);
+			printf("\"");
+			//printf("\"%s\"", e->string_literal);
 			break;
 		case EXPR_ARRAY_LIT:
 			printf("{");
@@ -349,6 +355,27 @@ expr_class expr_get_class(expr_t e){
 		return -1;
 	}
 }
+
+void expr_string_print(const char* s){
+	while(*s!='\0'){
+		expr_char_print(*s);
+		s++;
+	}
+}
+
+void expr_char_print(char c){
+	switch(c){
+		case '\n':
+			printf("\\n");
+			break;
+		case '\t':
+			printf("\\t");
+			break;
+		default:
+			printf("%c", c);
+	}
+}
+
 
 // void expr_operator(char* oper, struct expr* e){
 // 	check_left_parens(e->kind, e->left); 			//Check left item
