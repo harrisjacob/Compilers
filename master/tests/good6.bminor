@@ -1,0 +1,14 @@
+main: function integer()={
+
+	x: integer = 5;
+	for(i<=5;;i++){
+		print "Loop", i;
+	}if(true){
+			for(x=5;x<M;){
+		y++;
+	}
+		return x-k[2];
+	}for(;;){
+		y++;
+	}
+}

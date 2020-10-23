@@ -1,0 +1,10 @@
+// prints and returns
+
+main: function integer () = {
+	print x+5;
+	return y;
+	print x, y, "Hello", 5;
+	return x-;
+	return x[5][3];
+	print ;
+}

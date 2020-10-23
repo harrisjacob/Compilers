@@ -1,0 +1,10 @@
+//Arrays
+names: array [3] string = {"This is not 3 names"};
+c: array [3] integer = {3, x, 4%2};
+b: array [3] integer;
+r: array [2] array [2] integer;
+t: array [2] array [2] integer = {{1,2},{3,4}};
+d: array [5] integer = {1,2,3,4,5};
+f: array [3] boolean = {true, false, false};
+g: array [1] char = {'a', 'c', 'd'};
+m: array[2] integer;

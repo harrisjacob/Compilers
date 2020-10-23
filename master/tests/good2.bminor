@@ -1,0 +1,14 @@
+//Random assortment of B-minor code
+			main: function integer()={
+//This is a single line comment
+	x: char = 'a';
+								z: boolean = true;
+
+	if(x==y) return x+y;else{
+		for(x=1;x<y;x++) print "Hello", "World"; if(!z){
+							x = x + 3;
+y++; /*Multiline comment
+			here is more comment
+			even More*/
+		}
+		if(!z) print "Not Z: ", z;}return 0;}
