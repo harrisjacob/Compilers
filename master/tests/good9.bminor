@@ -1,0 +1,12 @@
+main: function integer () = {
+if(x>y){if(m<5){if(c==g) y = 5; else m++;}
+	}else{
+		x++;
+	} if(false) x--;
+	if(x==1) x--; else{
+		n++;
+		g--;
+	} if(true) if(false) y++; else x++; if(x==4) x++;
+	else y++;if(true){x++; y++; }
+	else{x=x-1;}
+}

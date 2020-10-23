@@ -1,0 +1,9 @@
+//Prints if numbers between 0 and 100 are even or odd
+x: integer;
+y: integer = 100;
+z: char = '\t';
+y: char = '\n';
+
+main: function integer()={ even: string = "is Even!\n";
+	odd: string = "is Odd!\n"; for(x=0;x<y;x++){
+if(x%2==0) print x, even;else {print x, odd;}}}

@@ -1,0 +1,10 @@
+//Function calls
+
+main: function integer()={
+
+	puts("hello world", 5, 9);
+
+	hello('c', 15, (1+4));
+
+	foobar((3*x)+5, (x+5)*3, (3*x)+5);
+}

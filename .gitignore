@@ -2,4 +2,6 @@
 *.xlsx
 **/Homework
 **/compilerbook-examples
-**/Scanner
+**.txt
+**.o
+

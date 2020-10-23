@@ -1,0 +1,11 @@
+//Testing arrays and indexes
+a: array [5] integer;
+b: array [5] integer = {1,2,3,4,5};
+
+main: function integer()={for(i=0; i<5; i++){
+		b[i] = b[i]*2;
+		b[i] = b[i] + 3 / 2;}
+
+	if(x!=y)if(y!=x)if(c==y)if(true)x++;else{y++;}else for(j%2;j!=k;j--)j^2;
+
+	print "hello", 3, x+5, y, 'c';return 0;}

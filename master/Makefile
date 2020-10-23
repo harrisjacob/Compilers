@@ -1,6 +1,6 @@
 LIBR = ./src
 
-bminor:  scanner.o parser.o main.o token.o
+bminor:  scanner.o parser.o main.o stmt.o decl.o expr.o type.o param_list.o token.o
 	gcc $^ -o bminor -lm
 
 # This pattern indicates that any .o file depends

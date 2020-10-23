@@ -1,0 +1,5 @@
+main: function void () = {
+	print;
+	print x, y, "hello", true, false;
+	print str, " str ", x, str2; if(!((4*x^5 + 4) - 4 >= 1)){x = 6;}arr[3][2] = 5;x = arr[2][3];x++;return z;c:char = str[0];
+}

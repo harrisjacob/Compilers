@@ -1,0 +1,42 @@
+//Random assortment of b-minor code
+
+
+main: function integer () = {
+	if(y == 5)
+		if(true){
+			print "Hello\n" ;
+		}else{
+			return 5;
+		}
+
+	print;
+	print "Hello test\n";
+	print x, "goodbye";	
+
+	if(! (4*x / 4) + 4 != x%4 + 2*30 / 2^8 ){
+		x = 6;	
+	}
+
+	if( true )
+		for(x = 10; true false)
+			x++;
+		else
+			return -1;
+
+
+	for(;;) {
+
+		x = x + 1 * y;
+
+		if(x<0 || y<0) {
+			x = 3*m/2;
+		}	
+
+		x = x + x*constant;
+		y = y + y*constant;
+
+		foo();
+		foobar("Hello","Goodbye","randStr");
+		bar();
+	}
+}

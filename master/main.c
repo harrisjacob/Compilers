@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "decl.h"
 #include "token.h"
 #include "parser.h"
 
@@ -62,7 +63,18 @@ int main( int argc, char *argv[] )
 			printf("Parse failed.\n");
 			return 1;
 		}
+
+	}else if(!strcmp(argv[1],"-print")){
 		
+		int res;
+		if((res=yyparse())) {
+			printf("Parse failed.\n");
+			return 1;
+		}
+
+		int indent = 0;
+		if(program_output) decl_print(program_output, indent);
+
 	}else{
 		printf("Error: Unknown stage requested\n");
 		helpInfo(1);
