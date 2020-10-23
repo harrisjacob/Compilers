@@ -2,8 +2,6 @@
 *.xlsx
 **/Homework
 **/compilerbook-examples
-**/Scanner
-**/Parser
 **.txt
-*.bminor
+**.o
 

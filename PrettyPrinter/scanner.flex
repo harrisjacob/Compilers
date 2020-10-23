@@ -1,9 +1,8 @@
 %{
-#include "parser.h"
+#include "token.h"
 %}
 DIGIT  [0-9]
 LETTER [a-zA-Z]
-NEWLINE (\n|\r|\n\r|\r\n)
 %%
 (" "|\t|\n|\r)  /* skip whitespace */
 <<EOF>>                                         { return TOKEN_EOF; }
@@ -110,61 +109,5 @@ string 											{ return TOKEN_STRING; }
 
 %%
 int yywrap() { return 1; }
-const char* token_to_string(int token){
-	
-	const char* token_trans[] = {
-    	"TOKEN_EOF",
-    	"TOKEN_ARRAY",
-    	"TOKEN_ELSE",
-    	"TOKEN_FALSE",
-    	"TOKEN_FOR",
-    	"TOKEN_FUNCTION",
-    	"TOKEN_IF",
-    	"TOKEN_PRINT",
-    	"TOKEN_RETURN",
-    	"TOKEN_TRUE",
-    	"TOKEN_VOID",
-    	"TOKEN_WHILE",
-    	"TOKEN_INTEGER",
-    	"TOKEN_BOOLEAN",
-    	"TOKEN_CHARACTER",
-    	"TOKEN_STRING",
-    	"TOKEN_INTEGER_LITERAL",
-    	"TOKEN_CHARACTER_LITERAL",
-    	"TOKEN_STRING_LITERAL",
-    	"TOKEN_IDENTIFIER",
-    	"TOKEN_L_PAREN",
-    	"TOKEN_R_PAREN",
-    	"TOKEN_L_SUB",
-    	"TOKEN_R_SUB",
-    	"TOKEN_POST_INC",
-    	"TOKEN_POST_DEC",
-    	"TOKEN_UNARY_NEG",
-    	"TOKEN_LOGIC_NOT",
-    	"TOKEN_EXP",
-    	"TOKEN_MULT",
-    	"TOKEN_DIVIDE",
-    	"TOKEN_MOD",
-    	"TOKEN_ADD",
-    	"TOKEN_SUB",
-    	"TOKEN_LT",
-    	"TOKEN_LE",
-    	"TOKEN_GT",
-    	"TOKEN_GE",
-    	"TOKEN_EQUIV",
-    	"TOKEN_NOT_EQUIV",
-    	"TOKEN_LOGIC_AND",
-    	"TOKEN_LOGIC_OR",
-    	"TOKEN_ASSIGNMENT",
-    	"TOKEN_SEMICOLON",
-    	"TOKEN_COLON",
-    	"TOKEN_COMMA",
-    	"TOKEN_L_CURLY",
-    	"TOKEN_R_CURLY",
-    	"TOKEN_BACKSLASH",
-    	"TOKEN_ERROR"
-     };
 
-    return token_trans[token];
-}
 

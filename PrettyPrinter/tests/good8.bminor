@@ -1,0 +1,13 @@
+//Random Code
+
+prototype: function integer ();newarray: function void ( b: array [] boolean, size: integer ) = {printarray(a,b);if(bar(4)){x++;}else{y++;}y = foobar(c,d) + 5;
+}main: function integer () = {	return 3;}foo: function array [] integer() = {
+	return 5;}bar: function boolean ( ) = { if(true){ return 1;
+	}else{
+		return 2;
+	}
+
+}foobar: function integer ()={
+	if(a>5) return true;
+	else return false;
+}

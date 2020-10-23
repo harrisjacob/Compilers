@@ -1,0 +1,15 @@
+a: integer;
+b: integer = 54;
+c: integer = -55;
+d: boolean;
+e: boolean = true;
+f: boolean = false;
+g: char;
+h: char = 'h'
+i: string;
+j: string = "Short string\n";
+k: array [10] integer;
+l: array [2] integer = {1,2};
+m: function integer ( ) = {
+	return x;
+}
