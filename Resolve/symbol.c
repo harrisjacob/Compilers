@@ -3,7 +3,7 @@
 struct symbol * symbol_create( symbol_t kind, struct type *type, char *name ){
 	struct symbol *retVal;
 
-	if(!(retVal = malloc(sizeof(struct symbol)))){
+	if(!(retVal = (struct symbol *) malloc(sizeof(struct symbol)))){
 		printf("Error: Failed to allocate symbol structure\n");
 		return NULL;
 	}

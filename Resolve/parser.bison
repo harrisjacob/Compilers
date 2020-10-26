@@ -115,8 +115,6 @@ decl 	: id TOKEN_COLON type TOKEN_SEMICOLON																		//declaration witho
 			{ $$ = decl_create((char *)$1->name, $3, $5, NULL, NULL); }
 		| id TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY stmtList TOKEN_R_CURLY									//declaration with block assignment
 			{ $$ = decl_create((char *)$1->name, $3, NULL, $6, NULL); }
-		// | id TOKEN_COLON type TOKEN_ASSIGNMENT TOKEN_L_CURLY bracList TOKEN_R_CURLY TOKEN_SEMICOLON					//declaration with array assignment
-		// 	{ $$ = decl_create((char *)$1->name, $3, NULL, $6, NULL); }
 		;
 
 stmtList: stmt stmtList
@@ -193,7 +191,6 @@ literal : TOKEN_INTEGER_LITERAL
 			{ $$ = expr_create_string_literal(yytext); }
 		| TOKEN_L_CURLY arrayLit TOKEN_R_CURLY
 			{ $$ = expr_create_paren(EXPR_ARRAY_LIT, $2, NULL); } 
-			//$$ = expr_create(EXPR_ARRAY_LIT, 0, 0, $2); }
 		;
 
 arrayLit: expr
@@ -228,24 +225,6 @@ optionalArgList	: /*no args*/
 				| arrayLit
 					{ $$ = $1; }
 				;
-//Returns an expr
-// argList : expr 																			//expr
-// 			{ $$ = $1; }
-// 		| expr TOKEN_COMMA argList 														// expr, expr, ...
-// 			{
-// 				$1 -> next = $3;
-// 				$$ = $1;
-// 			}
-// 		;
-// //Returns a statement
-// bracList: argList
-// 			{ $$ = stmt_create(STMT_LIST, NULL, NULL, $1, NULL, NULL, NULL, NULL); }
-// 		| TOKEN_L_CURLY bracList TOKEN_R_CURLY
-// 			{ $$ = stmt_create(STMT_LIST, NULL, NULL, NULL, NULL, $2, NULL, NULL); }
-// 		| TOKEN_L_CURLY bracList TOKEN_R_CURLY TOKEN_COMMA bracList
-// 			{ $$ = stmt_create(STMT_LIST, NULL, NULL, NULL, NULL, $2, NULL, $5); }
-// 		;
-
 
 expr	: id TOKEN_ASSIGNMENT expr
 			{ $$ = expr_create(EXPR_ASSIGN, $1, $3, NULL);}

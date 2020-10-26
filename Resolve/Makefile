@@ -1,5 +1,5 @@
 LIBR = ./src
-OBJ = scanner.o parser.o main.o stmt.o decl.o expr.o type.o param_list.o token.o resolve.o hash_table.o symbol.o
+OBJ = scanner.o parser.o main.o stmt.o decl.o expr.o type.o param_list.o token.o hash_table.o scope.o resolve.o symbol.o
 
 bminor:  $(OBJ)
 	gcc $^ -o bminor -lm

@@ -90,11 +90,6 @@ void stmt_print( struct stmt *s, int indent ){
 			print_tabs(indent);
 			printf("}\n");
 			break;
-		case STMT_LIST:
-			printf("{");
-			expr_print(s->expr);
-			printf("}");
-			break;
 		default: 
 			printf("Something broke in stmt\n");
 			return;

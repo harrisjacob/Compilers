@@ -3,26 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DEFAULT_SIZE 127
-#define DEFAULT_LOAD 0.75
-#define DEFAULT_FUNC hash_string
-
-struct entry {
-	char *key;
-	void *value;
-	unsigned hash;
-	struct entry *next;
-};
-
-struct hash_table {
-	hash_func_t hash_func;
-	int bucket_count;
-	int size;
-	struct entry **buckets;
-	int ibucket;
-	struct entry *ientry;
-};
-
 struct hash_table *hash_table_create(int bucket_count, hash_func_t func)
 {
 	struct hash_table *h;
@@ -44,6 +24,8 @@ struct hash_table *hash_table_create(int bucket_count, hash_func_t func)
 		free(h);
 		return 0;
 	}
+
+	h->level = h->local_count = h->param_count = 0;
 
 	return h;
 }
@@ -157,7 +139,6 @@ int hash_table_insert(struct hash_table *h, const char *key, const void *value)
 
 	while(e) {
 		if(hash == e->hash && !strcmp(key, e->key)){
-						printf("Failed here?\n");
 			return 0;
 		}
 		e = e->next;
