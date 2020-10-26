@@ -25,6 +25,7 @@ int decl_resolve(struct decl *d, struct hash_table *ht){
 	if(scope_bind(d->name, d->symbol, ht)) return 1;
 
 	if(d->code){
+		d->symbol->which = 1;
 		if(scope_enter(&ht)) return 1;
 		param_list_resolve(d->type->params, ht);
 		stmt_resolve(d->code, ht);
@@ -40,7 +41,9 @@ void expr_resolve(struct expr *e, struct hash_table* ht){
 	if(!e) return;
 
 	if(e->kind == EXPR_ID){
-		e->symbol = scope_lookup(e->name, ht);
+		if(!(e->symbol = scope_lookup(e->name, ht))){
+			undeclared(e->name);
+		}
 	}else if(e->kind == EXPR_PAREN){
 		expr_resolve(e->inner, ht);
 	}else{
@@ -63,20 +66,36 @@ void stmt_resolve(struct stmt* s, struct hash_table* ht){
 			expr_resolve(s->expr, ht);
 			break;
 		case STMT_IF_ELSE:
-			scope_enter(&ht);
-			stmt_resolve(s->body, ht);
-			scope_leave(&ht);
-			scope_enter(&ht);
-			stmt_resolve(s->else_body, ht);
-			scope_leave(&ht);
+			expr_resolve(s->expr, ht);
+			if(s->body && s->body->kind!=STMT_BLOCK){ 	//If the body is single line, enter a new scope
+				scope_enter(&ht);
+				stmt_resolve(s->body, ht);
+				scope_leave(&ht);
+			}else{										//If the body is multiline, let STMT_BLOCK handle scope
+				stmt_resolve(s->body, ht);		
+			}
+			if(s->else_body){
+				if(s->else_body && s->else_body->kind!=STMT_BLOCK){
+					scope_enter(&ht);
+					stmt_resolve(s->else_body, ht);
+					scope_leave(&ht);
+				}else{
+					 stmt_resolve(s->else_body, ht);
+				}
+
+			}
 			break;
 		case STMT_FOR:
 			expr_resolve(s->init_expr, ht);
 			expr_resolve(s->expr, ht);
 			expr_resolve(s->next_expr, ht);
-			scope_enter(&ht);
-			stmt_resolve(s->body, ht);
-			scope_leave(&ht);
+			if(s->body && s->body->kind!=STMT_BLOCK){		//See if_else explanation
+				scope_enter(&ht);
+				stmt_resolve(s->body, ht);
+				scope_leave(&ht);
+			}else{
+				stmt_resolve(s->body, ht);
+			}
 			break;
 		case STMT_PRINT:
 			expr_resolve(s->expr,ht);
@@ -99,6 +118,20 @@ void stmt_resolve(struct stmt* s, struct hash_table* ht){
 
 void param_list_resolve(struct param_list* pl, struct hash_table *ht){
 	if(!pl) return;
-	if(!(pl->symbol = symbol_create(SYMBOL_PARAM, pl->type, pl->name))) printf("Parameter symbol create failed!\n");
+	if(!(pl->symbol = symbol_create(SYMBOL_PARAM, pl->type, pl->name))){
+		printf("Parameter symbol create failed!\n");
+	}else{
+		scope_bind(pl->name, pl->symbol, ht);
+	}
 	param_list_resolve(pl->next, ht);
+}
+
+void undeclared(const char* name){
+	printf("\nMy dearest, sweet, innocent friend,\n\n");
+	printf("If my records are correct, sometime in the chaos of today you forgot to declare %s.\n", name);
+	printf("Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't\n");
+	printf("declare it because you assumed somebody else would come along and declare it for you.\n");
+	printf("Well I'm sorry to break the news to you, but nobody is going to declare %s for you.\n", name);
+	printf("You'll have to do that yourself. Please give %s a proper declaration so we can get\n", name);
+	printf("this whole execution thing underway.\n\nSincerely,\n\t The Name Resolver\n\n");
 }

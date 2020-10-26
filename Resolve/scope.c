@@ -54,8 +54,14 @@ int scope_bind(const char *name, struct symbol *s, struct hash_table *ht){
 		}
 
 	}else{
-		printf("Redeclaration of %s\n", name);
-		return 1;
+		/* Functions can have as many declarations (prototypes) until they are defined.
+		Testing d->code in scope will set the findSymbol->which field of functions.
+		Anything that's not a function or is a function that is defined should throw error.
+		*/
+		if(!(findSymbol->type->kind==TYPE_FUNCTION) || (findSymbol->which == 1)){
+			printf("Redeclaration of %s\n", name);
+			return 1;
+		}
 	}
 
 	return 0;

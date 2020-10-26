@@ -1,4 +1,5 @@
 #include "symbol.h"
+#include "type.h"
 #include "hash_table.h"
 
 
