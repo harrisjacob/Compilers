@@ -24,7 +24,7 @@ int decl_resolve(struct decl *d, struct hash_table *ht){
 
 	error_state += expr_resolve(d->value, ht);
 
-	if(scope_bind(d->name, d->symbol, ht)) return 1;
+	if(scope_bind(d->name, d->symbol, ht)) error_state+=1;
 
 	if(d->code){
 		//First function checks if function is already defined, second is checking entering scope

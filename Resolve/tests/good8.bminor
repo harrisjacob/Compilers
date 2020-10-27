@@ -1,0 +1,21 @@
+//Function prototypes and declarations
+
+foo: function integer();
+foo: function integer();
+foo: function integer();
+foo: function integer();
+foo: function integer();
+foo: function integer();
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	a:integer = 5;
+	return foo();
+}
+
+foo: function integer()={
+	return 1;
+}
+
+bar: function void () = {
+	print "foobar";
+}

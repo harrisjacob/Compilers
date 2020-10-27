@@ -1,0 +1,28 @@
+Entering scope level: 0
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+argc resolves to param 0 of scope 1
+Entering scope level: 2
+argc resolves to param 0 of scope 1
+Exiting scope level: 2
+argc resolves to param 0 of scope 1
+Entering scope level: 2
+Exiting scope level: 2
+g declared as local 0 within scope level 1
+f declared as local 1 within scope level 1
+argv resolves to param 1 of scope 1
+f resolves to local 1 of scope 1
+Entering scope level: 2
+f resolves to local 1 of scope 1
+Exiting scope level: 2
+Entering scope level: 2
+f resolves to local 1 of scope 1
+c declared as local 0 within scope level 2
+c resolves to local 0 of scope 2
+Exiting scope level: 2
+g resolves to local 0 of scope 1
+Exiting scope level: 1
+Exiting scope level: 0
+Return code: 0

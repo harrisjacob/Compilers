@@ -1,0 +1,43 @@
+Entering scope level: 0
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+a declared as local 0 within scope level 1
+Entering scope level: 2
+a declared as local 0 within scope level 2
+b declared as local 1 within scope level 2
+Entering scope level: 3
+c declared as local 0 within scope level 3
+Exiting scope level: 3
+Exiting scope level: 2
+a resolves to local 0 of scope 1
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare b.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare b for you.
+You'll have to do that yourself. Please give b a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare c.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare c for you.
+You'll have to do that yourself. Please give c a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+Exiting scope level: 1
+Exiting scope level: 0
+Return code: 1

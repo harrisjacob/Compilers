@@ -1,0 +1,34 @@
+Entering scope level: 0
+foo declared as global foo within scope level 0
+Entering scope level: 1
+a declared as param 0 within scope level 1
+b declared as param 1 within scope level 1
+c declared as param 2 within scope level 1
+d declared as local 0 within scope level 1
+
+My dear, sweet, innocent friend,
+
+If you are seeing this message you have found an easter egg in
+the compiler that only occurs when you redeclare a variable such as
+you did with a. While other compilers might be so bold to assume you
+made some form of mistake, I think you meant to redeclare a. Why you
+chose to redeclare a, I do not know. It is not my job to know these
+kind of things. While this was a fun one sided conversation, I think you
+should take another look at your declarations of a.
+
+Sincerely,
+	The Name Resolver
+
+a resolves to param 0 of scope 1
+b resolves to param 1 of scope 1
+d resolves to local 0 of scope 1
+a resolves to param 0 of scope 1
+Exiting scope level: 1
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+foo resolves to global foo of scope 0
+Exiting scope level: 1
+Exiting scope level: 0
+Return code: 1

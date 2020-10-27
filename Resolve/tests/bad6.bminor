@@ -1,0 +1,14 @@
+//Trying to use a variable that has fallen out of scope
+
+main: function integer (argc:integer, argv: array [] string) = {
+	a:integer = 1;
+	{
+		a:integer = 2;
+		b:integer = 2;
+		{
+			c:integer = 3;
+		}
+	}
+
+	return a + b + c;
+}

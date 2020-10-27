@@ -1,0 +1,60 @@
+Entering scope level: 0
+g1 declared as global g1 within scope level 0
+myName declared as global myName within scope level 0
+newBool declared as global newBool within scope level 0
+newChar declared as global newChar within scope level 0
+foo declared as global foo within scope level 0
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+newBool resolves to global newBool of scope 0
+Entering scope level: 2
+myName resolves to global myName of scope 0
+Exiting scope level: 2
+Entering scope level: 2
+a declared as local 0 within scope level 2
+b declared as local 1 within scope level 2
+a resolves to local 0 of scope 2
+a resolves to local 0 of scope 2
+g1 resolves to global g1 of scope 0
+a resolves to local 0 of scope 2
+Entering scope level: 3
+b resolves to local 1 of scope 2
+foo resolves to global foo of scope 0
+a resolves to local 0 of scope 2
+b resolves to local 1 of scope 2
+Exiting scope level: 3
+Exiting scope level: 2
+g1 resolves to global g1 of scope 0
+Exiting scope level: 1
+Entering scope level: 1
+x declared as param 0 within scope level 1
+x resolves to param 0 of scope 1
+Entering scope level: 2
+Exiting scope level: 2
+d declared as local 0 within scope level 1
+e declared as local 1 within scope level 1
+e resolves to local 1 of scope 1
+e resolves to local 1 of scope 1
+e resolves to local 1 of scope 1
+Entering scope level: 2
+d resolves to local 0 of scope 1
+e resolves to local 1 of scope 1
+e resolves to local 1 of scope 1
+Exiting scope level: 2
+e resolves to local 1 of scope 1
+e resolves to local 1 of scope 1
+x resolves to param 0 of scope 1
+e resolves to local 1 of scope 1
+Entering scope level: 2
+e resolves to local 1 of scope 1
+x resolves to param 0 of scope 1
+Entering scope level: 3
+d resolves to local 0 of scope 1
+e resolves to local 1 of scope 1
+Exiting scope level: 3
+Exiting scope level: 2
+Exiting scope level: 1
+Exiting scope level: 0
+Return code: 0

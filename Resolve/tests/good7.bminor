@@ -1,0 +1,29 @@
+//Resolving variables of broader scopes
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	
+	a:integer = 5;
+	{
+		b:integer = a + a;
+
+		{
+			c:integer = a;
+			c = c - b;
+			{
+				d:integer = argc + a;
+				{
+					e:integer = b + c;
+					a = c - e;
+					{
+						f:integer = a + b + c + d + e;
+						a = f + 5;
+					}
+				}
+			}
+			z:integer = c + b;
+			a = z-1;
+		}
+	}
+
+	return a;
+}

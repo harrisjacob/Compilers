@@ -1,0 +1,73 @@
+Entering scope level: 0
+a declared as global a within scope level 0
+b declared as global b within scope level 0
+c declared as global c within scope level 0
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+a declared as local 0 within scope level 1
+e declared as local 1 within scope level 1
+a resolves to local 0 of scope 1
+e resolves to local 1 of scope 1
+f declared as local 2 within scope level 1
+
+My dear, sweet, innocent friend,
+
+If you are seeing this message you have found an easter egg in
+the compiler that only occurs when you redeclare a variable such as
+you did with a. While other compilers might be so bold to assume you
+made some form of mistake, I think you meant to redeclare a. Why you
+chose to redeclare a, I do not know. It is not my job to know these
+kind of things. While this was a fun one sided conversation, I think you
+should take another look at your declarations of a.
+
+Sincerely,
+	The Name Resolver
+
+b resolves to global b of scope 0
+a resolves to local 0 of scope 1
+q declared as local 3 within scope level 1
+f resolves to local 2 of scope 1
+f resolves to local 2 of scope 1
+q resolves to local 3 of scope 1
+f resolves to local 2 of scope 1
+Entering scope level: 2
+f resolves to local 2 of scope 1
+Exiting scope level: 2
+
+My dear, sweet, innocent friend,
+
+You may not have realized it, but you actually already declared f as
+type integer.  It's nothing to be embarrassed about, we all do it from time
+to time, but you can't make f type char after saying it was a integer. You'll
+have to pick one type or maybe change one of the names. Until then, I just
+don't know which type of f you want to use.
+
+Sincerely,
+	The Name Resolver
+
+Exiting scope level: 1
+Entering scope level: 1
+c declared as param 0 within scope level 1
+Exiting scope level: 1
+r declared as global r within scope level 0
+Entering scope level: 1
+c declared as param 0 within scope level 1
+Exiting scope level: 1
+
+My dear, sweet, innocent friend,
+
+If you are seeing this message you have found an easter egg in
+the compiler that only occurs when you redeclare a variable such as
+you did with b. While other compilers might be so bold to assume you
+made some form of mistake, I think you meant to redeclare b. Why you
+chose to redeclare b, I do not know. It is not my job to know these
+kind of things. While this was a fun one sided conversation, I think you
+should take another look at your declarations of b.
+
+Sincerely,
+	The Name Resolver
+
+Exiting scope level: 0
+Return code: 1

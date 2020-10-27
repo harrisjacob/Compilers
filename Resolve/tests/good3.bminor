@@ -1,0 +1,25 @@
+//If scope rules
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	
+	if(argc == 1) return argc;
+	if(argc < 3){
+		print "Please enter more command line args";
+		return 1;
+	}
+	
+	g:integer = 5;
+	f:string = "f";
+
+	if(argv[1]==f){
+		print "2nd arg is an f string";
+		print "Great work printing", f;
+		return 1;
+	}else{
+		print "2nd arg is not equal to ", f;
+		c:integer = 6;
+		return c;
+	}
+
+	return g;
+}

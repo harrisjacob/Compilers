@@ -1,0 +1,10 @@
+Entering scope level: 0
+a declared as global a within scope level 0
+b declared as global b within scope level 0
+c declared as global c within scope level 0
+d declared as global d within scope level 0
+e declared as global e within scope level 0
+f declared as global f within scope level 0
+g declared as global g within scope level 0
+Exiting scope level: 0
+Return code: 0

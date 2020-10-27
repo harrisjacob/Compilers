@@ -1,0 +1,7 @@
+//Use of variable before declaration
+main: function integer()={
+	c:char = 'c';
+	d:string = "Hello\n";
+	x:integer =5;
+	z:integer = y+x;
+}

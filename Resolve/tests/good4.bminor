@@ -1,0 +1,31 @@
+//for loop scope
+
+N:integer = 5;
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	
+	i:integer;
+	for(i=0;i<N;i++){
+		print i;
+	}
+
+	j:integer = i + N;
+
+	for(i=0;i<j;) i++;
+
+	for(j=0;;j++){
+		k:integer = 1;
+		for(i=0;i<N;i++){
+			if(i+5 == k) k++;
+		}
+
+		if(j == 10){
+			return k+5;
+		}
+	}
+
+	for(j=0;j<N;j++)j++;
+
+	return j;
+
+}

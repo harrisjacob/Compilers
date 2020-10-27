@@ -1,0 +1,372 @@
+Entering scope level: 0
+a declared as global a within scope level 0
+
+My dear, sweet, innocent friend,
+
+You may not have realized it, but you actually already declared a as
+type integer.  It's nothing to be embarrassed about, we all do it from time
+to time, but you can't make a type string after saying it was a integer. You'll
+have to pick one type or maybe change one of the names. Until then, I just
+don't know which type of a you want to use.
+
+Sincerely,
+	The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+You may not have realized it, but you actually already declared a as
+type integer.  It's nothing to be embarrassed about, we all do it from time
+to time, but you can't make a type boolean after saying it was a integer. You'll
+have to pick one type or maybe change one of the names. Until then, I just
+don't know which type of a you want to use.
+
+Sincerely,
+	The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+You may not have realized it, but you actually already declared a as
+type integer.  It's nothing to be embarrassed about, we all do it from time
+to time, but you can't make a type char after saying it was a integer. You'll
+have to pick one type or maybe change one of the names. Until then, I just
+don't know which type of a you want to use.
+
+Sincerely,
+	The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+You may not have realized it, but you actually already declared a as
+type integer.  It's nothing to be embarrassed about, we all do it from time
+to time, but you can't make a type function after saying it was a integer. You'll
+have to pick one type or maybe change one of the names. Until then, I just
+don't know which type of a you want to use.
+
+Sincerely,
+	The Name Resolver
+
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+a resolves to global a of scope 0
+Entering scope level: 2
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare myName.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare myName for you.
+You'll have to do that yourself. Please give myName a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+Exiting scope level: 2
+Entering scope level: 2
+a declared as local 0 within scope level 2
+
+My dear, sweet, innocent friend,
+
+If you are seeing this message you have found an easter egg in
+the compiler that only occurs when you redeclare a variable such as
+you did with a. While other compilers might be so bold to assume you
+made some form of mistake, I think you meant to redeclare a. Why you
+chose to redeclare a, I do not know. It is not my job to know these
+kind of things. While this was a fun one sided conversation, I think you
+should take another look at your declarations of a.
+
+Sincerely,
+	The Name Resolver
+
+a resolves to local 0 of scope 2
+a resolves to local 0 of scope 2
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare g1.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare g1 for you.
+You'll have to do that yourself. Please give g1 a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+a resolves to local 0 of scope 2
+Entering scope level: 3
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare b.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare b for you.
+You'll have to do that yourself. Please give b a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare foo.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare foo for you.
+You'll have to do that yourself. Please give foo a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+a resolves to local 0 of scope 2
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare b.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare b for you.
+You'll have to do that yourself. Please give b a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+Exiting scope level: 3
+Exiting scope level: 2
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare g1.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare g1 for you.
+You'll have to do that yourself. Please give g1 a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+Exiting scope level: 1
+foo declared as global foo within scope level 0
+Entering scope level: 1
+x declared as param 0 within scope level 1
+
+My dear, sweet, innocent friend,
+
+If you are seeing this message you have found an easter egg in
+the compiler that only occurs when you redeclare a variable such as
+you did with x. While other compilers might be so bold to assume you
+made some form of mistake, I think you meant to redeclare x. Why you
+chose to redeclare x, I do not know. It is not my job to know these
+kind of things. While this was a fun one sided conversation, I think you
+should take another look at your declarations of x.
+
+Sincerely,
+	The Name Resolver
+
+x resolves to param 0 of scope 1
+Entering scope level: 2
+Exiting scope level: 2
+
+My dear, sweet, innocent friend,
+
+You may not have realized it, but you actually already declared x as
+type integer.  It's nothing to be embarrassed about, we all do it from time
+to time, but you can't make x type char after saying it was a integer. You'll
+have to pick one type or maybe change one of the names. Until then, I just
+don't know which type of x you want to use.
+
+Sincerely,
+	The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+Entering scope level: 2
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare d.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare d for you.
+You'll have to do that yourself. Please give d a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+Exiting scope level: 2
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+x resolves to param 0 of scope 1
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+Entering scope level: 2
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+x resolves to param 0 of scope 1
+Entering scope level: 3
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare d.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare d for you.
+You'll have to do that yourself. Please give d a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare e.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare e for you.
+You'll have to do that yourself. Please give e a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+Exiting scope level: 3
+Exiting scope level: 2
+Exiting scope level: 1
+
+My dear, sweet, innocent friend,
+
+If you are seeing this message you have found an easter egg in
+the compiler that only occurs when you redeclare a variable such as
+you did with foo. While other compilers might be so bold to assume you
+made some form of mistake, I think you meant to redeclare foo. Why you
+chose to redeclare foo, I do not know. It is not my job to know these
+kind of things. While this was a fun one sided conversation, I think you
+should take another look at your declarations of foo.
+
+Sincerely,
+	The Name Resolver
+
+Exiting scope level: 0
+Return code: 1

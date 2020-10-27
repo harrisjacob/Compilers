@@ -1,0 +1,8 @@
+//Redefinition of a variable with the same type
+main: function integer (argc:integer, argv: array [] string) = {	
+	x:integer = 5;
+	y:integer = 3;
+	z:integer = 4;
+	y:integer;
+	return z;
+}

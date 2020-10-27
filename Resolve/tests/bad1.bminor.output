@@ -1,0 +1,24 @@
+Entering scope level: 0
+main declared as global main within scope level 0
+Entering scope level: 1
+c declared as local 0 within scope level 1
+d declared as local 1 within scope level 1
+x declared as local 2 within scope level 1
+
+My dear, sweet, innocent friend,
+
+If my records are correct, sometime in the chaos of today you forgot to declare y.
+Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't
+declare it because you assumed somebody else would come along and declare it for you.
+Well I'm sorry to break the news to you, but nobody is going to declare y for you.
+You'll have to do that yourself. Please give y a proper declaration so we can get
+this whole execution thing underway.
+
+Sincerely,
+	 The Name Resolver
+
+x resolves to local 2 of scope 1
+z declared as local 3 within scope level 1
+Exiting scope level: 1
+Exiting scope level: 0
+Return code: 1

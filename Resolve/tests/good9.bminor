@@ -1,0 +1,23 @@
+//Resolving complex expressions
+
+main: function integer (argc:integer, argv: array [] string) = {	
+
+	a:integer = 1;
+	b:integer = 2;
+	c:integer = 3;
+	d:integer = 4;
+	e:integer = 5;
+
+	if(a+b+c+d == 6){
+		print d/2 + (3*b);
+	}else{
+		for(b=3;!((d+b)%2==(b-b)); b++){
+			f:integer = a*(c^b)/(d-b);
+			a = -(f++);
+			g:boolean = (a-c/d==true && d^2%2==0 || !(d-4!=0));
+		}
+	}
+
+	return e;
+	
+}

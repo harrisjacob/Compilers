@@ -1,0 +1,20 @@
+Entering scope level: 0
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+x declared as local 0 within scope level 1
+Exiting scope level: 1
+foo declared as global foo within scope level 0
+Entering scope level: 1
+Exiting scope level: 1
+bar declared as global bar within scope level 0
+Entering scope level: 1
+Exiting scope level: 1
+foobar declared as global foobar within scope level 0
+Entering scope level: 1
+x declared as param 0 within scope level 1
+x resolves to param 0 of scope 1
+Exiting scope level: 1
+Exiting scope level: 0
+Return code: 0

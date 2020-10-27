@@ -1,0 +1,50 @@
+Entering scope level: 0
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+x declared as local 0 within scope level 1
+y declared as local 1 within scope level 1
+Entering scope level: 2
+x declared as local 0 within scope level 2
+y declared as local 1 within scope level 2
+Entering scope level: 3
+x declared as local 0 within scope level 3
+y declared as local 1 within scope level 3
+Entering scope level: 4
+Entering scope level: 5
+Entering scope level: 6
+Entering scope level: 7
+Entering scope level: 8
+Entering scope level: 9
+Entering scope level: 10
+x declared as local 0 within scope level 10
+y declared as local 1 within scope level 10
+x resolves to local 0 of scope 10
+y resolves to local 1 of scope 10
+z declared as local 2 within scope level 10
+Exiting scope level: 10
+x resolves to local 0 of scope 3
+y resolves to local 1 of scope 3
+z declared as local 0 within scope level 9
+Exiting scope level: 9
+x resolves to local 0 of scope 3
+y resolves to local 1 of scope 3
+z declared as local 0 within scope level 8
+Exiting scope level: 8
+Exiting scope level: 7
+Exiting scope level: 6
+Exiting scope level: 5
+Exiting scope level: 4
+x resolves to local 0 of scope 3
+y resolves to local 1 of scope 3
+z declared as local 2 within scope level 3
+Exiting scope level: 3
+x resolves to local 0 of scope 2
+y resolves to local 1 of scope 2
+z declared as local 2 within scope level 2
+Exiting scope level: 2
+x resolves to local 0 of scope 1
+Exiting scope level: 1
+Exiting scope level: 0
+Return code: 0

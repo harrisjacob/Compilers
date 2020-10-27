@@ -1,0 +1,41 @@
+//Random b-minor code
+
+g1: integer = 5;
+myName: string = "Jake";
+newBool: boolean = true;
+newChar: char = 'c';
+foo: function integer(x:integer);
+
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	if(newBool){
+		print "Hello ", myName, " welcome to the program";
+	}else{
+		a:integer;
+		b:integer;
+		for(a=0;a<g1;a++){
+			b = foo(a);
+			print "Iteration", b, "\n";
+		}
+	}
+
+
+	return g1 - 5;
+
+}
+
+
+foo: function integer(x:integer) = {
+	if(x>10) return 1;
+	d: array [10] integer;
+	e:integer;
+	//Init values of array
+	for(e=0;e<10;e++){
+		d[e] = (10-e)*2;
+	}
+
+	for(e=0;e!=x;e++){
+		if(e+1==x) return d[e];
+	}
+	return 1;
+}

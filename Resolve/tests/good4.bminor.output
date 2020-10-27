@@ -1,0 +1,54 @@
+Entering scope level: 0
+N declared as global N within scope level 0
+main declared as global main within scope level 0
+Entering scope level: 1
+argc declared as param 0 within scope level 1
+argv declared as param 1 within scope level 1
+i declared as local 0 within scope level 1
+i resolves to local 0 of scope 1
+i resolves to local 0 of scope 1
+N resolves to global N of scope 0
+i resolves to local 0 of scope 1
+Entering scope level: 2
+i resolves to local 0 of scope 1
+Exiting scope level: 2
+i resolves to local 0 of scope 1
+N resolves to global N of scope 0
+j declared as local 1 within scope level 1
+i resolves to local 0 of scope 1
+i resolves to local 0 of scope 1
+j resolves to local 1 of scope 1
+Entering scope level: 2
+i resolves to local 0 of scope 1
+Exiting scope level: 2
+j resolves to local 1 of scope 1
+j resolves to local 1 of scope 1
+Entering scope level: 2
+k declared as local 0 within scope level 2
+i resolves to local 0 of scope 1
+i resolves to local 0 of scope 1
+N resolves to global N of scope 0
+i resolves to local 0 of scope 1
+Entering scope level: 3
+i resolves to local 0 of scope 1
+k resolves to local 0 of scope 2
+Entering scope level: 4
+k resolves to local 0 of scope 2
+Exiting scope level: 4
+Exiting scope level: 3
+j resolves to local 1 of scope 1
+Entering scope level: 3
+k resolves to local 0 of scope 2
+Exiting scope level: 3
+Exiting scope level: 2
+j resolves to local 1 of scope 1
+j resolves to local 1 of scope 1
+N resolves to global N of scope 0
+j resolves to local 1 of scope 1
+Entering scope level: 2
+j resolves to local 1 of scope 1
+Exiting scope level: 2
+j resolves to local 1 of scope 1
+Exiting scope level: 1
+Exiting scope level: 0
+Return code: 0
