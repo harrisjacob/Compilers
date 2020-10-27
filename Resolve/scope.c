@@ -17,14 +17,14 @@ int scope_enter(struct hash_table **stkPTR){
 	}
 	(*stkPTR) = newHT;								//Move top of stack to new HT
 
-	printf("Entering scope: %i\n", scope_level(*stkPTR));
+	printf("Entering scope level: %i\n", scope_level(*stkPTR));
 
 	return 0;
 
 }
 
 void scope_leave(struct hash_table **stkPTR){
-	printf("Exiting scope: %i\n", scope_level(*stkPTR));
+	printf("Exiting scope level: %i\n", scope_level(*stkPTR));
 	struct hash_table *newTop = (*stkPTR)->prev;
 	if(newTop) newTop->next = NULL;
 	free(*stkPTR);
@@ -50,15 +50,12 @@ int scope_bind(const char *name, struct symbol *s, struct hash_table *ht){
 				printf("global %s",name);
 			}
 
-			printf(" within scope %i\n", scope_level(ht));
+			printf(" within scope level %i\n", scope_level(ht));
 		}
 
 	}else{
-		/* Functions can have as many declarations (prototypes) until they are defined.
-		Testing d->code in scope will set the findSymbol->which field of functions.
-		Anything that's not a function or is a function that is defined should throw error.
-		*/
-		if(!(findSymbol->type->kind==TYPE_FUNCTION) || (findSymbol->which == 1)){
+		 //Functions are a bit of an exception that is handled by scope_defined later
+		if(!(findSymbol->type->kind==TYPE_FUNCTION)){
 			scope_redeclared(findSymbol, s);
 			return 1;
 		}
@@ -151,4 +148,15 @@ void scope_get_type(struct type* t){
 	}
 }
 
-
+int scope_defined(const char* name, struct symbol* s, struct hash_table* ht){
+	struct symbol* findSymbol;
+	if((findSymbol = hash_table_lookup(ht, name))){
+		if(!findSymbol->defined){		//If it is not defined set it as defined
+			findSymbol->defined = 1;
+		}else{							//If it is defined through error message
+			scope_redeclared(findSymbol, s);
+			return 1;
+		}
+	}
+	return 0;
+}

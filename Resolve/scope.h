@@ -16,3 +16,5 @@ int scope_level(struct hash_table *ht);
 void scope_redeclared(struct symbol* first, struct symbol* next);
 
 void scope_get_type(struct type* t);
+
+int scope_defined(const char* name, struct symbol* s, struct hash_table* ht);

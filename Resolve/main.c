@@ -83,8 +83,9 @@ int main( int argc, char *argv[] )
 			printf("Parse failed.\n");
 			return 1;
 		}
-
-		return resolve_tree(program_output);
+		int ret= resolve_tree(program_output);
+		printf("Return code: %i\n", ret);
+		return ret;
 
 	}else{
 		printf("Error: Unknown stage requested\n");
