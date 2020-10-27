@@ -59,7 +59,7 @@ int scope_bind(const char *name, struct symbol *s, struct hash_table *ht){
 		Anything that's not a function or is a function that is defined should throw error.
 		*/
 		if(!(findSymbol->type->kind==TYPE_FUNCTION) || (findSymbol->which == 1)){
-			printf("Redeclaration of %s\n", name);
+			scope_redeclared(findSymbol, s);
 			return 1;
 		}
 	}
@@ -94,3 +94,61 @@ struct symbol* scope_lookup(const char *name, struct hash_table *ht){
 int scope_level(struct hash_table *ht){
 	return ht->level;
 }
+
+void scope_redeclared(struct symbol* first, struct symbol* next){
+	
+	if(first->type->kind == next->type->kind){
+		printf("\nMy dear, sweet, innocent friend,\n\n");
+		printf("If you are seeing this message you have found an easter egg in\n");
+		printf("the compiler that only occurs when you redeclare a variable such as\n");
+		printf("you did with %s. While other compilers might be so bold to assume you\n", first->name);
+		printf("made some form of mistake, I think you meant to redeclare %s. Why you\n", first->name);
+		printf("chose to redeclare %s, I do not know. It is not my job to know these\n", first->name);
+		printf("kind of things. While this was a fun one sided conversation, I think you\n");
+		printf("should take another look at your declarations of %s.\n\n", first->name);
+		printf("Sincerely,\n\tThe Name Resolver\n\n");
+	}else{
+		printf("\nMy dear, sweet, innocent friend,\n\n");
+		printf("You may not have realized it, but you actually already declared %s as\ntype ", first->name);
+		scope_get_type(first->type);
+		printf(".  It's nothing to be embarrassed about, we all do it from time\n");
+		printf("to time, but you can't make %s type ", first->name);
+		scope_get_type(next->type);
+		printf(" after saying it was a ");
+		scope_get_type(first->type);
+		printf(". You'll\nhave to pick one type or maybe change one of the names. Until");
+		printf(" then, I just\ndon't know which type of %s you want to use.\n\n", first->name);
+		printf("Sincerely,\n\tThe Name Resolver\n\n");
+	}
+}
+
+void scope_get_type(struct type* t){
+	switch(t->kind){
+		case TYPE_VOID:
+			printf("void");
+			return;
+		case TYPE_BOOLEAN:
+			printf("boolean");
+			return;
+		case TYPE_CHARACTER:
+			printf("char");
+			return;
+		case TYPE_INTEGER:
+			printf("integer");
+			return;
+		case TYPE_STRING:
+			printf("string");
+			return;
+		case TYPE_ARRAY:
+			printf("array");
+			return;
+		case TYPE_FUNCTION:
+			printf("function");
+			return;
+		default:
+			printf("unknown type");
+			return;
+	}
+}
+
+

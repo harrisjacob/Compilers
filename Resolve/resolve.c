@@ -1,6 +1,5 @@
 #include "resolve.h"
 
-
 int resolve_tree(struct decl* tree){
 	struct hash_table *stkPTR = NULL;
 	if(scope_enter(&stkPTR)) return 1;
@@ -82,7 +81,6 @@ void stmt_resolve(struct stmt* s, struct hash_table* ht){
 				}else{
 					 stmt_resolve(s->else_body, ht);
 				}
-
 			}
 			break;
 		case STMT_FOR:
@@ -127,7 +125,7 @@ void param_list_resolve(struct param_list* pl, struct hash_table *ht){
 }
 
 void undeclared(const char* name){
-	printf("\nMy dearest, sweet, innocent friend,\n\n");
+	printf("\nMy dear, sweet, innocent friend,\n\n");
 	printf("If my records are correct, sometime in the chaos of today you forgot to declare %s.\n", name);
 	printf("Maybe it's mispelled. Maybe you commented out the declaration. Maybe you just didn't\n");
 	printf("declare it because you assumed somebody else would come along and declare it for you.\n");
