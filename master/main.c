@@ -4,6 +4,7 @@
 #include "decl.h"
 #include "token.h"
 #include "parser.h"
+#include "resolve.h"
 
 
 extern FILE *yyin;
@@ -74,6 +75,17 @@ int main( int argc, char *argv[] )
 
 		int indent = 0;
 		if(program_output) decl_print(program_output, indent);
+	
+	}else if(!strcmp(argv[1],"-resolve")){
+		
+		int res;
+		if((res=yyparse())) {
+			printf("Parse failed.\n");
+			return 1;
+		}
+		int ret= resolve_tree(program_output);
+		printf("Return code: %i\n", ret);
+		return ret;
 
 	}else{
 		printf("Error: Unknown stage requested\n");

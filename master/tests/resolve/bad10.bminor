@@ -1,0 +1,55 @@
+//General B-Minor code that fails a lot for many reasons
+
+a: integer = 5;
+a: string = "Jake";
+a: boolean = true;
+a: char = 'c';
+a: function integer(x:integer);
+
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	if(!a){
+		print "Hello ", myName, " welcome to the program";
+	}else{
+		a:integer;
+		a:integer;
+		for(a=0;a<g1;a++){
+			b = foo(a);
+			print "Iteration", b, "\n";
+		}
+	}
+
+
+	return g1 - 5;
+
+}
+
+foo: function integer(x:integer) = {
+	x:integer;
+	if(x>10) return 1;
+	x:char;
+	//Init values of array
+	for(e=0;e<10;e++){
+		d[e] = (10-e)*2;
+	}
+
+	for(e=0;e!=x;e++){
+		if(e+1==x) return d[e];
+	}
+	return 1;
+}
+
+foo: function integer(x:integer) = {
+	x:integer;
+	if(x>10) return 1;
+	x:char;
+	//Init values of array
+	for(e=0;e<10;e++){
+		d[e] = (10-e)*2;
+	}
+
+	for(e=0;e!=x;e++){
+		if(e+1==x) return d[e];
+	}
+	return 1;
+}

@@ -1,0 +1,23 @@
+//Redefined function: Can have many prototypes but only one definition
+
+foo: function integer(x:integer);
+foo: function integer(x:integer);
+foo: function integer(x:integer);
+foo: function integer(x:integer);
+foo: function integer(x:integer);
+foo: function integer(x:integer);
+foo: function integer(x:integer);
+foo: function integer(x:integer);
+foo: function integer(x:integer);
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	return foo(5);
+}
+
+foo: function integer(x:integer) = {
+	return x+1;
+}
+
+foo: function integer(x:integer) = {
+	return x+2;
+}

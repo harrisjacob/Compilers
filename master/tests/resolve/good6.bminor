@@ -1,0 +1,25 @@
+//Resolving all three kinds of symbols
+
+a:integer = 5;
+b:char = 'c';
+addOne: function integer(p:integer);
+
+
+main: function integer (argc:integer, argv:array [] string) = {	
+	c:integer = 2;
+
+	z:integer = c + argc + a;
+
+	if(z > argc){
+		b = 'b';
+		argv[2] = "foo";
+		c++;
+	}else{
+		z = addOne(c+argc);
+	}
+	
+}
+
+addOne: function integer(p:integer) = {
+	return p + 1;
+}

@@ -1,0 +1,12 @@
+//Call a function before it has been declared
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	a:integer;
+	b:char = 'b';
+	c:string="foobar";
+	return foo(a);
+}
+
+foo: function integer() = {
+	return 1;
+}

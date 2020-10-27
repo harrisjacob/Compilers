@@ -1,0 +1,8 @@
+//Global Declaration
+a: integer;
+b: integer = 100;
+c: char = '\t';
+d: string = "Hello\n";
+e: boolean = true;
+f: function integer ();
+g: array [2] integer;

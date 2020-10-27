@@ -2,6 +2,9 @@
 #ifndef SYMBOL_H
 #define SYMBOL_H
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 typedef enum {
 	SYMBOL_LOCAL,
@@ -14,6 +17,7 @@ struct symbol {
 	struct type *type;
 	char *name;
 	int which;
+	int defined;
 };
 
 struct symbol * symbol_create( symbol_t kind, struct type *type, char *name );

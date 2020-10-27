@@ -1,6 +1,7 @@
 LIBR = ./src
+OBJ = scanner.o parser.o main.o stmt.o decl.o expr.o type.o param_list.o token.o hash_table.o scope.o resolve.o symbol.o
 
-bminor:  scanner.o parser.o main.o stmt.o decl.o expr.o type.o param_list.o token.o
+bminor:  $(OBJ)
 	gcc $^ -o bminor -lm
 
 # This pattern indicates that any .o file depends
@@ -22,3 +23,4 @@ parser.c parser.h: parser.bison
 
 clean:
 	rm -f parser.[ch] parser.output scanner.c *.o bminor
+	rm tests/resolve/*.output

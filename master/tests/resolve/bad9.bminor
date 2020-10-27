@@ -1,0 +1,27 @@
+//Declaring the same variable in different scopes until there is an error
+a:integer;
+
+foo: function integer(a:integer);
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	a:integer = 1;
+	{
+		if(a == 1){
+			a:integer;
+			{
+				a:integer;
+				for(a=0;a<5;a++){
+					a:integer;
+					foo(a);
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+
+foo: function integer(a:integer) = {
+	a:integer;
+	return a;
+}

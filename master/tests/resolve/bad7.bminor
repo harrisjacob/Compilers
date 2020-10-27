@@ -1,0 +1,13 @@
+//Declaring a variable that conflicts with parameters
+
+foo: function integer(a:integer, b:integer, c:integer) = {
+	d:integer = 5;
+	a:integer;
+	a = b + d;
+	return a;
+}
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	return foo(1);	
+}
+

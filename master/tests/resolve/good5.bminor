@@ -1,0 +1,41 @@
+//Establish a long sequence of scope
+
+main: function integer (argc:integer, argv: array [] string) = {	
+	
+	x:integer = 5;
+	y:integer = 5;
+	{
+		x:integer = 6;
+		y:integer = 6;
+
+		{
+			x:integer = 7;
+			y:integer = 7;
+
+			{
+				{
+				{
+				{
+				{
+				{
+				{
+					x:integer = 10;
+					y:integer = 10;
+					z:integer = x+y;
+				}
+
+					z:integer = x+y;
+				}
+					z:integer = x+y;
+				}
+				}
+				}
+				}
+			}
+			z:integer = x+y;
+		}
+		z:integer = x+y;
+	}
+
+	return x;
+}

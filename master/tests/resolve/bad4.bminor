@@ -1,0 +1,12 @@
+//Redefinition of a variable with a different type
+main: function integer (argc:integer, argv: array [] string) = {	
+	a:integer = 5;
+	b:char = 'b';
+	c: array [2] string = {"Hello\n", "Goodbye"};
+	d: string = "foobar";
+	e:integer = 17;
+	f:integer = a + e;
+	if(f<17) print "f is less than 17";
+	a:char = 'a';
+	g:integer = 13;
+}
