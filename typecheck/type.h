@@ -29,4 +29,10 @@ void          type_print( struct type *t );
 
 char* 		  getType(type_t t);
 
+int type_equals(struct type *a, struct type *b);
+
+struct type * type_copy(struct type *t);
+
+void type_delete(struct type* t);
+
 #endif
