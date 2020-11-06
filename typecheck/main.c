@@ -5,6 +5,7 @@
 #include "token.h"
 #include "parser.h"
 #include "resolve.h"
+#include "typechecker.h"
 
 
 extern FILE *yyin;
@@ -86,6 +87,15 @@ int main( int argc, char *argv[] )
 		int ret= resolve_tree(program_output);
 		printf("Return code: %i\n", ret);
 		return ret;
+
+	}else if(!strcmp(argv[1],"-typecheck")){
+		if(yyparse()){
+			printf("Parse failed.\n");
+			return 1;
+		}
+		if(resolve_tree(program_output)) return 1;
+
+		decl_typecheck(program_output);
 
 	}else{
 		printf("Error: Unknown stage requested\n");

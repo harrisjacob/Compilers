@@ -296,7 +296,6 @@ expr7	: TOKEN_SUB expr7
 
 expr8	: expr9 TOKEN_POST_INC
 			{
-
 				$$ = expr_create(EXPR_POST_INC, $1, NULL, NULL); 
 			}
 		| expr9 TOKEN_POST_DEC

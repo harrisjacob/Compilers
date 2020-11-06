@@ -1,9 +1,9 @@
 #!/bin/sh
 
-for testfile in tests/resolve/good*.bminor
+for testfile in tests/good*.bminor
 do
 	
-	if ./bminor -resolve $testfile > $testfile.output
+	if ./bminor -typecheck $testfile > $testfile.output
 	then
 		echo "$testfile success (as expected)\n"
 	else
@@ -12,9 +12,9 @@ do
 	fi
 done
 
-for testfile in tests/resolve/bad*.bminor
+for testfile in tests/bad*.bminor
 do
-	if ./bminor -resolve $testfile > $testfile.output
+	if ./bminor -typecheck $testfile > $testfile.output
 	then
 		echo "$testfile success (INCORRECT)\n"
 	else
