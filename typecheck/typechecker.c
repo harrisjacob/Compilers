@@ -14,34 +14,42 @@ struct type * expr_typecheck(struct expr *e){
 
 	switch(e->kind){
 		case EXPR_ASSIGN:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_BOOLEAN, lt->kind, TYPE_BOOLEAN, rt->kind);
 			result = type_create(rt->kind, NULL, NULL, NULL);
 			break;
 		case EXPR_OR:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_BOOLEAN, lt->kind, TYPE_BOOLEAN, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_AND:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_BOOLEAN, lt->kind, TYPE_BOOLEAN, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_LT:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_LE:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_GT:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_GE:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_EQ:
+			if(!lt || !rt) break;
 			if(type_equals(lt,rt)){
 				printf("type error: Cannot evaluate equivalence comparison due to type mismatch\n");
 				printf("\tcompared expressions were of type ");
@@ -58,6 +66,7 @@ struct type * expr_typecheck(struct expr *e){
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_NEQ:
+			if(!lt || !rt) break;
 			if(type_equals(lt,rt)){
 				printf("type error: Cannot evaluate unequal comparison due to type mismatch\n");
 				printf("\tcompared expressions were of type ");
@@ -74,46 +83,57 @@ struct type * expr_typecheck(struct expr *e){
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_ADD:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_SUB:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_MOD:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_MUL:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_DIV:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_EXP:
+			if(!lt || !rt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_NEG:
-			operands_typecheck(e->kind, 0, 0, TYPE_INTEGER, lt->kind);
+			if(!rt) break;
+			operands_typecheck(e->kind, 0, 0, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_NOT:
-			operands_typecheck(e->kind, 0, 0, TYPE_BOOLEAN, lt->kind);
+			if(!rt) break;
+			operands_typecheck(e->kind, 0, 0, TYPE_BOOLEAN, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_POST_INC:
+			if(!lt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, 0, 0);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_POST_DEC:
+			if(!lt) break;
 			operands_typecheck(e->kind, TYPE_INTEGER, lt->kind, 0, 0);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_INDEX:
+			if(!lt || !rt) break;
 			if(lt->kind==TYPE_ARRAY){
 				if(rt->kind!=TYPE_INTEGER){
 					printf("type error: array dereference must be of type integer\n");
@@ -130,6 +150,7 @@ struct type * expr_typecheck(struct expr *e){
 			}
 			break;
 		case EXPR_FUNC:
+			if(!lt) break;
 			if(lt->kind==TYPE_FUNCTION){
 				nextExpr = e->right;
 				struct type* t;
@@ -221,7 +242,7 @@ void decl_typecheck(struct decl *d){
 void stmt_typecheck(struct stmt *s){
 	if(!s) return;
 	struct type *t;
-	struct expr * e;
+	struct expr *e;
 
 	switch(s->kind){
 		case STMT_DECL:
