@@ -288,7 +288,6 @@ void decl_typecheck(struct decl *d){
 	if(!d) return;
 
 	if(d->type && d->type->kind == TYPE_FUNCTION){
-		set_return(d);
 		if(d->symbol && d->symbol->type && d->type){
 			if(type_equals(d->symbol->type->subtype, d->type->subtype)){
 				printf("type error (%i): Function %s was initially declared with return type ", ++typecheck_err, d->name);
@@ -311,13 +310,21 @@ void decl_typecheck(struct decl *d){
 		type_delete(t);
 	}
 	if(d->code){
-			stmt_typecheck(d->code);
+		int local_lock;
+		//printf("attempting lock\n");	
+		local_lock = set_return(d); 
+		stmt_typecheck(d->code);
+		//printf("releasing lock\n");
+		if(!local_lock){
+			function_lock = 0;
+			return_type = TYPE_VOID;
+		} 
 	}
 
-	if(d->type && d->type->kind == TYPE_FUNCTION){
-		function_lock = 0;
-		return_type = TYPE_VOID;
-	}
+	// if(d->type && d->type->kind == TYPE_FUNCTION){
+	// 	function_lock = 0;
+		
+	// }
 
 	decl_typecheck(d->next);
 
@@ -371,7 +378,7 @@ void stmt_typecheck(struct stmt *s){
 			if(!function_lock){
 				printf("type error (%i): statement 'return ", ++typecheck_err);
 				expr_print(s->expr);
-				printf("' located outside function block\n");
+				printf("' located outside function definition\n");
 			}else{
 				if(t->kind!=return_type){
 					printf("type error (%i): Current function scope has return type '%s'", ++typecheck_err, getType(return_type));
@@ -428,11 +435,14 @@ int catchArray(struct expr* e){
 	return 0;
 }
 
-void set_return(struct decl* d){
+int set_return(struct decl* d){
 	if(!function_lock){
 		function_lock = 1;
+		//printf("got it!\n");
 		if(d->type->subtype) return_type = d->type->subtype->kind;
+		return 0;
 	}else{
 		printf("type error (%i): Function %s cannot be declared within a function.\n", ++typecheck_err, d->name);
+		return 1;
 	}
 }
