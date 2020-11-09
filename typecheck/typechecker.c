@@ -1,6 +1,8 @@
 #include "typechecker.h"
 
 int typecheck_err = 0;
+int function_lock = 0;
+type_t return_type = TYPE_VOID;
 
 struct type * expr_typecheck(struct expr *e){
 	if(!e) return NULL;
@@ -284,6 +286,9 @@ struct type * expr_typecheck(struct expr *e){
 
 void decl_typecheck(struct decl *d){
 	if(!d) return;
+
+	if(d->type && d->type->kind == TYPE_FUNCTION) set_return(d);
+
 	if(d->value){
 		struct type *t;
 		t = expr_typecheck(d->value);
@@ -293,9 +298,14 @@ void decl_typecheck(struct decl *d){
 		type_delete(t);
 	}
 	if(d->code){
-		stmt_typecheck(d->code);
+			stmt_typecheck(d->code);
 	}
 
+	if(d->type && d->type->kind == TYPE_FUNCTION){
+		printf("Exiting function\n");
+		function_lock = 0;
+		return_type = TYPE_VOID;
+	}
 
 	decl_typecheck(d->next);
 
@@ -346,6 +356,20 @@ void stmt_typecheck(struct stmt *s){
 			break;
 		case STMT_RETURN:
 			t = expr_typecheck(s->expr);
+			if(!function_lock){
+				printf("type error (%i): statement 'return ", ++typecheck_err);
+				expr_print(s->expr);
+				printf("' located outside function block\n");
+			}else{
+				if(t->kind!=return_type){
+					printf("type error (%i): Current function scope has return type '%s'", ++typecheck_err, getType(return_type));
+					printf(" but expression returned (");
+					expr_print(s->expr);
+					printf(") has type ");
+					print_type_t(t);
+					printf(".\n");
+				}
+			}
 			type_delete(t);
 			if(s->expr && s->expr->next) printf("type error (%i): function cannot return multiple expressions\n", ++typecheck_err);
 			break;
@@ -392,3 +416,14 @@ int catchArray(struct expr* e){
 	return 0;
 }
 
+void set_return(struct decl* d){
+	printf("Attempting to enter function\n");
+	if(!function_lock){
+		printf("entrance success\n");
+		function_lock = 1;
+		if(d->type->subtype) return_type = d->type->subtype->kind;
+	}else{
+		printf("entrance failure\n");
+		printf("type error (%i): Function %s cannot be declared within a function.\n", ++typecheck_err, d->name);
+	}
+}

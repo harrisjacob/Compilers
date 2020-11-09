@@ -12,3 +12,5 @@ void decl_typecheck(struct decl *d);
 void stmt_typecheck(struct stmt *s);
 
 int catchArray(struct expr* e);
+
+void set_return(struct decl* d);
