@@ -14,4 +14,4 @@ long integer_power( long x, long y );
 
 void print_expr_t(expr_t t);
 
-void print_type_t(type_t t);
+void print_type_t(struct type* t);

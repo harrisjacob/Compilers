@@ -124,7 +124,13 @@ void print_expr_t(expr_t t){
 	printf("'");
 }
 
-void print_type_t(type_t t){
+void print_type_t(struct type* t){
+	if(!t) return;
 	//Just a wrapper for the getType function defined in type.c
-	printf("'%s'", getType(t));
+	printf("'%s'", getType(t->kind));
+	if(t->kind == TYPE_ARRAY){
+		printf("(subtype: ");
+		print_type_t(t->subtype);
+		printf(")");
+	}
 }

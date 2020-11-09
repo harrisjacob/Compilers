@@ -24,13 +24,46 @@ struct type * expr_typecheck(struct expr *e){
 	switch(e->kind){
 		case EXPR_ASSIGN:
 			if(!lt || !rt) break;
-			operands_typecheck(e, lt->kind, lt->kind, lt->kind, rt->kind);
-			result = type_create(lt->kind, NULL, NULL, NULL);
+			if(type_equals(lt, rt)){
+				printf("type error (%i): Cannot perform assignment operation of '", ++typecheck_err);
+				expr_print(e);
+				printf("' due to mismatched types. Left hand side is of operator is of type ");
+				print_type_t(lt);
+				printf(" while right hand side of operator is of type ");
+				print_type_t(rt);
+				printf("\n");
+			}else{
+				//Arrays have assignment restrictions on assigning to identifiers
+				if(lt->kind == TYPE_ARRAY){
+					if(catchArray(e->left)){
+						printf("type error (%i): Array literal assignment to identifier is not permitted.\n", ++typecheck_err);
+					}
+				}
+			}
+			
+			if(lt->kind == TYPE_VOID){
+				printf("type error (%i): Assignment in expression '", ++typecheck_err);
+				expr_print(e);
+				printf("' is not allowed because left hand side is type 'void'. Defaulting to result of type 'int'\n");
+				result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
+			}else{
+				result = type_copy(lt);
+			}
+			//operands_typecheck(e, lt->kind, lt->kind, lt->kind, rt->kind);
 			break;
 		case EXPR_OR:
 		case EXPR_AND:
 			if(!lt || !rt) break;
-			operands_typecheck(e, TYPE_BOOLEAN, lt->kind, TYPE_BOOLEAN, rt->kind);
+			if(type_equals(lt, rt) || lt->kind != TYPE_BOOLEAN){
+				printf("type error (%i): Arguments of expression '", ++typecheck_err);
+				expr_print(e);
+				printf("' must be of type 'boolean'. Arguments are of type ");
+				print_type_t(lt);
+				printf(" and type ");
+				print_type_t(rt);
+				printf(" respectively.\n");
+			}
+			//operands_typecheck(e, TYPE_BOOLEAN, lt->kind, TYPE_BOOLEAN, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_LT:
@@ -38,7 +71,16 @@ struct type * expr_typecheck(struct expr *e){
 		case EXPR_GT:
 		case EXPR_GE:
 			if(!lt || !rt) break;
-			operands_typecheck(e, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
+			if(type_equals(lt, rt) || lt->kind != TYPE_INTEGER){
+				printf("type error (%i): Arguments of expression '", ++typecheck_err);
+				expr_print(e);
+				printf("' must be of type 'integer'. Arguments are of type ");
+				print_type_t(lt);
+				printf(" and type ");
+				print_type_t(rt);
+				printf(" respectively.\n");
+			}
+			//operands_typecheck(e, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_EQ:
@@ -51,9 +93,9 @@ struct type * expr_typecheck(struct expr *e){
 				printf("' and '");
 				expr_print(e->right);
 				printf("' were of type ");
-				print_type_t(lt->kind);
+				print_type_t(lt);
 				printf(" and type ");
-				print_type_t(rt->kind);
+				print_type_t(rt);
 				printf(" respectively \n");
 			}
 			if(lt->kind == TYPE_VOID || lt->kind == TYPE_ARRAY || lt->kind == TYPE_FUNCTION){
@@ -62,7 +104,7 @@ struct type * expr_typecheck(struct expr *e){
 				printf("' and '");
 				expr_print(e->right);
 				printf("' cannot be accomplished because ");
-				print_type_t(lt->kind);
+				print_type_t(lt);
 				printf(" is a non-comparable type\n");
 			}
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
@@ -74,23 +116,53 @@ struct type * expr_typecheck(struct expr *e){
 		case EXPR_DIV:
 		case EXPR_EXP:
 			if(!lt || !rt) break;
-			operands_typecheck(e, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
+			if(type_equals(lt, rt) || lt->kind != TYPE_INTEGER){
+				printf("type error (%i): Arguments of expression '", ++typecheck_err);
+				expr_print(e);
+				printf("' must be of type 'integer'. Arguments are of type ");
+				print_type_t(lt);
+				printf(" and type ");
+				print_type_t(rt);
+				printf(" respectively.\n");
+			}
+			//operands_typecheck(e, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_NEG:
 			if(!rt) break;
-			operands_typecheck(e, 0, 0, TYPE_INTEGER, rt->kind);
+			if(rt->kind != TYPE_INTEGER){
+				printf("type error (%i): Argument of expression '", ++typecheck_err);
+				expr_print(e);
+				printf("' must be of type 'integer'. Argument is of type ");
+				print_type_t(lt);
+				printf(".\n");
+			}
+			//operands_typecheck(e, 0, 0, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_NOT:
 			if(!rt) break;
-			operands_typecheck(e, 0, 0, TYPE_BOOLEAN, rt->kind);
+			if(rt->kind != TYPE_BOOLEAN){
+				printf("type error (%i): Argument of expression '", ++typecheck_err);
+				expr_print(e);
+				printf("' must be of type 'boolean'. Argument is of type ");
+				print_type_t(lt);
+				printf(".\n");
+			}
+			//operands_typecheck(e, 0, 0, TYPE_BOOLEAN, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
 		case EXPR_POST_INC:
 		case EXPR_POST_DEC:
 			if(!lt) break;
-			operands_typecheck(e, TYPE_INTEGER, lt->kind, 0, 0);
+			if(lt->kind != TYPE_INTEGER){
+				printf("type error (%i): Argument of expression '", ++typecheck_err);
+				expr_print(e);
+				printf("' must be of type 'integer'. Argument is of type ");
+				print_type_t(lt);
+				printf(".\n");
+			}
+			//operands_typecheck(e, TYPE_INTEGER, lt->kind, 0, 0);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			break;
 		case EXPR_INDEX:
@@ -101,17 +173,15 @@ struct type * expr_typecheck(struct expr *e){
 					expr_print(e);
 					printf("' has non-integer index\n");
 					printf("\tindex was of type ");
-					print_type_t(rt->kind);
+					print_type_t(rt);
 					printf("\n");
 				}
-
-
 
 				//WORKING HERE
 				result = type_copy(lt->subtype);
 			}else{
 				printf("type error (%i): dereferencing ", ++typecheck_err);
-				print_type_t(lt->kind);
+				print_type_t(lt);
 				printf(" operation is not allowed within '");
 				expr_print(e);
 				printf("' context.\n");
@@ -182,9 +252,9 @@ struct type * expr_typecheck(struct expr *e){
 						if(type_equals(firstType, nextType)){
 							printf("type error (%i): Illegal mixing of array literal elements\n", ++typecheck_err);
 							printf("\tInitial element is of type ");
-							print_type_t(firstType->kind);
+							print_type_t(firstType);
 							printf(" and element %i is of type ", elemCounter);
-							print_type_t(nextType->kind);
+							print_type_t(nextType);
 							printf(".\n");
 						}
 						nextExpr = nextExpr->next;
@@ -290,7 +360,7 @@ void stmt_typecheck(struct stmt *s){
 	stmt_typecheck(s->next);
 }
 
-
+/*
 void operands_typecheck(struct expr* op, type_t lt_exp, type_t lt, type_t rt_exp, type_t rt){
 	//No operand should expect a 0 enum expression type (assignment)
 	//Expected data types are always literals
@@ -310,5 +380,15 @@ void operands_typecheck_util(struct expr* op, type_t exp, type_t act, int argCou
 		printf(".\n");
 	}
 }
+*/
 
+int catchArray(struct expr* e){
+	if(!e) return 1;
+	if(e->kind == EXPR_ID){
+		return 1;
+	}else if(e->kind == EXPR_PAREN){
+		return catchArray(e->inner);
+	}
+	return 0;
+}
 
