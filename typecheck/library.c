@@ -128,7 +128,7 @@ void print_type_t(struct type* t){
 	if(!t) return;
 	//Just a wrapper for the getType function defined in type.c
 	printf("'%s'", getType(t->kind));
-	if(t->kind == TYPE_ARRAY){
+	if(t->kind == TYPE_ARRAY || t->kind == TYPE_FUNCTION){
 		printf("(subtype: ");
 		print_type_t(t->subtype);
 		printf(")");

@@ -287,7 +287,16 @@ struct type * expr_typecheck(struct expr *e){
 void decl_typecheck(struct decl *d){
 	if(!d) return;
 
-	if(d->type && d->type->kind == TYPE_FUNCTION) set_return(d);
+	if(d->type && d->type->kind == TYPE_FUNCTION){
+		set_return(d);
+		if(type_equals(d->symbol->type->subtype, d->type->subtype)){
+			printf("type error (%i): Function %s was initially declared with return type ", ++typecheck_err, d->name);
+			print_type_t(d->symbol->type->subtype);
+			printf(" but is later declared with type ");
+			print_type_t(d->type->subtype);
+			printf(".\n");
+		}
+	} 
 
 	if(d->value){
 		struct type *t;
@@ -302,7 +311,6 @@ void decl_typecheck(struct decl *d){
 	}
 
 	if(d->type && d->type->kind == TYPE_FUNCTION){
-		printf("Exiting function\n");
 		function_lock = 0;
 		return_type = TYPE_VOID;
 	}
@@ -417,13 +425,10 @@ int catchArray(struct expr* e){
 }
 
 void set_return(struct decl* d){
-	printf("Attempting to enter function\n");
 	if(!function_lock){
-		printf("entrance success\n");
 		function_lock = 1;
 		if(d->type->subtype) return_type = d->type->subtype->kind;
 	}else{
-		printf("entrance failure\n");
 		printf("type error (%i): Function %s cannot be declared within a function.\n", ++typecheck_err, d->name);
 	}
 }

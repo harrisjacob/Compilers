@@ -16,10 +16,27 @@ int decl_resolve(struct decl *d, struct hash_table *ht){
 
 	symbol_t kind = scope_level(ht) > 0 ? SYMBOL_LOCAL : SYMBOL_GLOBAL;
 
+
+	//If symbol already exists attach it
+	if(d->type && d->type->kind == TYPE_FUNCTION){
+		struct hash_table* globalScope = ht;
+		while(ht->level != 0) globalScope = globalScope->prev;
+		if((d->symbol = scope_lookup(d->name, globalScope))){
+			error_state += param_list_resolve(d->type->params, ht);
+			error_state += stmt_resolve(d->code, ht);
+			//scope_leave(&ht);
+			error_state += decl_resolve(d->next, ht);
+			return (!error_state) ? 0 : 1;
+		}
+	}
+	
+	//else create a new one
+
 	if(!(d->symbol = symbol_create(kind, d->type, d->name))){
 			printf("Declaration symbol create failed!\n");
 			return 1;
 	}
+	
 
 
 	error_state += expr_resolve(d->value, ht);
@@ -29,6 +46,7 @@ int decl_resolve(struct decl *d, struct hash_table *ht){
 	if(d->code){
 		//First function checks if function is already defined, second is checking entering scope
 		if(scope_defined(d->name, d->symbol, ht) || scope_enter(&ht)) return 1;
+
 		error_state += param_list_resolve(d->type->params, ht);
 		error_state += stmt_resolve(d->code, ht);
 		scope_leave(&ht);
