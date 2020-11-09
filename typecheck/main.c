@@ -13,6 +13,7 @@ extern int yyparse();
 extern int yylex();
 extern char *yytext;
 extern int yyleng;
+extern int typecheck_err;
 extern const char* token_to_string();
 
 void helpInfo(int status);
@@ -94,8 +95,9 @@ int main( int argc, char *argv[] )
 			return 1;
 		}
 		if(resolve_tree(program_output)) return 1;
-
+		printf("\n");
 		decl_typecheck(program_output);
+		return (!typecheck_err) ? 0 : 1;
 
 	}else{
 		printf("Error: Unknown stage requested\n");

@@ -31,7 +31,7 @@ long integer_power( long x, long y )
 }
 
 void print_expr_t(expr_t t){
-	printf("\'");
+	printf("'");
 	switch(t){	
 		case EXPR_ASSIGN:
 			printf("assignment");
@@ -121,5 +121,10 @@ void print_expr_t(expr_t t){
 			printf("unknown");
 			break;
 	}
-	printf("\'");
+	printf("'");
+}
+
+void print_type_t(type_t t){
+	//Just a wrapper for the getType function defined in type.c
+	printf("'%s'", getType(t));
 }

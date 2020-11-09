@@ -3,9 +3,9 @@
 
 struct type * expr_typecheck(struct expr *e);
 
-void operands_typecheck(expr_t op, expr_t lt_exp, expr_t lt, expr_t rt_exp, expr_t rt);
+void operands_typecheck(struct expr* op, type_t lt_exp, type_t lt, type_t rt_exp, type_t rt);
 
-void operands_typecheck_util(expr_t op, expr_t exp, expr_t act, int argCount);
+void operands_typecheck_util(struct expr* op, type_t exp, type_t act, int argCount);
 
 void decl_typecheck(struct decl *d);
 

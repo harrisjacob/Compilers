@@ -128,13 +128,13 @@ struct type *type_copy(struct type *t){
 
 void type_delete(struct type* t){
 	if(!t) return;
-
 	if(t->kind == TYPE_FUNCTION){
 		type_delete(t->subtype);
 		//Let param_list_delete handle the parameter list
 		param_list_delete(t->params);
 	}else if(t->kind == TYPE_ARRAY){
 		type_delete(t->subtype);
+		t->subtype = NULL;
 	}else if(t->kind > TYPE_STRING){
 		printf("type error: Unknown type cannot be deleted\n");
 		return;

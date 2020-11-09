@@ -252,10 +252,7 @@ void expr_print( struct expr *e ){
 }
 
 void check_parens(expr_class p_OP, struct expr *f, int rArg){
-	if(!f){											//Null recursive base case
-		printf("Returning null\n");
-		return;
-	}												
+	if(!f) return;										
 	if(f->kind != EXPR_PAREN){						//Defined recursive base case
 		return expr_print(f);						//Print the inner most expression
 	}
