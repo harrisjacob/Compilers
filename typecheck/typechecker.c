@@ -25,7 +25,6 @@ struct type * expr_typecheck(struct expr *e){
 
 	switch(e->kind){
 		case EXPR_ASSIGN:
-			if(!lt || !rt) break;
 			if(type_equals(lt, rt)){
 				printf("type error (%i): Cannot perform assignment operation of '", ++typecheck_err);
 				expr_print(e);
@@ -200,11 +199,45 @@ struct type * expr_typecheck(struct expr *e){
 			if(lt->kind==TYPE_FUNCTION){
 				nextExpr = e->right;
 				struct type* t;
-				while(nextExpr){
+				struct param_list *pl = lt->params;
+				int argCounter = 1;
+				while(nextExpr && pl){
 					t = expr_typecheck(nextExpr);
+					if(type_equals(t, pl->type)){
+						printf("type error (%i): expected argument %i of ", ++typecheck_err, argCounter); 
+						expr_print(e->left);
+						printf(" to be type ");
+						print_type_t(pl->type);
+						printf(". Argument %i was of type ", argCounter);
+						print_type_t(t);
+						printf(".\n\n");
+					}
 					type_delete(t);
 					nextExpr = nextExpr->next;
+					pl = pl->next;
+					argCounter++;
 				}
+
+				argCounter--;
+				if(nextExpr && !pl){
+					printf("type error (%i): Too many arguments provided to ", ++typecheck_err);
+					expr_print(e->left);
+					printf(". This function requires %i argumnets.", argCounter);
+					while(nextExpr){
+						argCounter++;
+						nextExpr = nextExpr->next;
+					}
+					printf(" %i arguments were provided.\n\n", argCounter);
+				}else if(!nextExpr && pl){
+					printf("type error (%i): Too few arguments provided (only %i given) to ", ++typecheck_err, argCounter);
+					expr_print(e->left);
+					while(pl){
+						argCounter++;
+						pl = pl->next;
+					}
+					printf(". A call to this function requires %i arguments.\n\n", argCounter);
+				}
+
 			}else{
 				printf("type error (%i): argument 1 of function call '", ++typecheck_err);
 				expr_print(e);
@@ -336,10 +369,6 @@ void decl_typecheck(struct decl *d){
 		} 
 	}
 
-	// if(d->type && d->type->kind == TYPE_FUNCTION){
-	// 	function_lock = 0;
-		
-	// }
 
 	decl_typecheck(d->next);
 
@@ -417,28 +446,6 @@ void stmt_typecheck(struct stmt *s){
 
 	stmt_typecheck(s->next);
 }
-
-/*
-void operands_typecheck(struct expr* op, type_t lt_exp, type_t lt, type_t rt_exp, type_t rt){
-	//No operand should expect a 0 enum expression type (assignment)
-	//Expected data types are always literals
-	int argCount = 1;
-	if(lt_exp) operands_typecheck_util(op, lt_exp, lt, argCount++);
-	if(rt_exp) operands_typecheck_util(op, rt_exp, rt, argCount);
-}
-
-void operands_typecheck_util(struct expr* op, type_t exp, type_t act, int argCount){
-	if(act!=exp){
-		printf("type error (%i): Argument %i of '", ++typecheck_err, argCount);
-		expr_print(op);
-		printf("' expression is of type ");
-		print_type_t(act);
-		printf(". Argument %i should be of type ", argCount);
-		print_type_t(exp);
-		printf(".\n");
-	}
-}
-*/
 
 int catchArray(struct expr* e){
 	if(!e) return 1;

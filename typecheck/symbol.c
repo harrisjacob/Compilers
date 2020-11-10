@@ -14,10 +14,3 @@ struct symbol * symbol_create( symbol_t kind, struct type *type, char *name ){
 
 	return retVal;
 }
-
-void symbol_delete(struct symbol* s){
-	if(!s) return;
-	free(s->name);
-	type_delete(s->type);
-	free(s);
-}

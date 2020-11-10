@@ -1,5 +1,7 @@
 #include "resolve.h"
 
+struct hash_table* baseScope;
+
 int resolve_tree(struct decl* tree){
 	int error_state = 0;
 	struct hash_table *stkPTR = NULL;

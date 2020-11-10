@@ -4,6 +4,7 @@ alpha: function integer(x:integer);
 alpha: function integer(x:integer);
 bravo: function boolean();
 charlie: function char(b:char, c:integer);
+golf: function integer (a:integer, b:boolean, c:char);
 
 alpha: function integer(x:integer) = {
 	z:integer = 1;
@@ -29,10 +30,25 @@ charlie: function integer(b:char, c:integer) = {
 }
 
 echo: function integer(t:integer) = {
+	//Calling function golf with incorrect arguments
+	
+	x:integer = golf('a',true,'c');
+
+	x = golf(1,false,"c");
+
+	x = golf(1,false);
+
+	x = golf(1,false,'c',6);
+
 	return t;
 }
 
 //Function cannot return array
 foxtrot: function array [] integer (x:integer) = {
 	print x;
+}
+
+golf: function integer (a:integer, b:boolean, c:char) = {
+	print a, b, c;
+	return 1;
 }
