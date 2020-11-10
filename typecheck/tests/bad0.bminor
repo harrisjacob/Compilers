@@ -1,0 +1,38 @@
+//Typechecking functions: embedded definitions, prototypes, and return types
+
+alpha: function integer(x:integer);
+alpha: function integer(x:integer);
+bravo: function boolean();
+charlie: function char(b:char, c:integer);
+
+alpha: function integer(x:integer) = {
+	z:integer = 1;
+
+	//Should not be able to declare a function inside another function
+	delta: function integer(q:integer) = {
+		return q;
+	}
+	return z;
+}
+
+bravo: function boolean() = {
+	z:integer = 1;
+	return z;
+}
+
+//This function should fail twice because its definition doesn't
+//match prototype and return doesn't match prototype
+
+charlie: function integer(b:char, c:integer) = {
+	z:integer = 1;
+	return z;
+}
+
+echo: function integer(t:integer) = {
+	return t;
+}
+
+//Function cannot return array
+foxtrot: function array [] integer (x:integer) = {
+	print x;
+}

@@ -33,12 +33,17 @@ struct type * expr_typecheck(struct expr *e){
 				print_type_t(lt);
 				printf(" while right hand side of operator is of type ");
 				print_type_t(rt);
-				printf("\n");
+				printf("\n\n");
 			}else{
 				//Arrays have assignment restrictions on assigning to identifiers
 				if(lt->kind == TYPE_ARRAY){
 					if(catchArray(e->left)){
-						printf("type error (%i): Array literal assignment to identifier is not permitted.\n", ++typecheck_err);
+						printf("type error (%i): Array literal assignment to identifier is not permitted.\n\n", ++typecheck_err);
+					}
+					if(lt->subtype->kind == TYPE_FUNCTION || lt->subtype->kind == TYPE_VOID){
+						printf("type error (%i): Array cannot be of type ", ++typecheck_err);
+						print_type_t(lt->subtype);
+						printf("\n\n.");
 					}
 				}
 			}
@@ -46,7 +51,7 @@ struct type * expr_typecheck(struct expr *e){
 			if(lt->kind == TYPE_VOID){
 				printf("type error (%i): Assignment in expression '", ++typecheck_err);
 				expr_print(e);
-				printf("' is not allowed because left hand side is type 'void'. Defaulting to result of type 'int'\n");
+				printf("' is not allowed because left hand side is type 'void'. Defaulting to result of type 'int'\n\n");
 				result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			}else{
 				result = type_copy(lt);
@@ -63,7 +68,7 @@ struct type * expr_typecheck(struct expr *e){
 				print_type_t(lt);
 				printf(" and type ");
 				print_type_t(rt);
-				printf(" respectively.\n");
+				printf(" respectively.\n\n");
 			}
 			//operands_typecheck(e, TYPE_BOOLEAN, lt->kind, TYPE_BOOLEAN, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
@@ -80,7 +85,7 @@ struct type * expr_typecheck(struct expr *e){
 				print_type_t(lt);
 				printf(" and type ");
 				print_type_t(rt);
-				printf(" respectively.\n");
+				printf(" respectively.\n\n");
 			}
 			//operands_typecheck(e, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
@@ -98,16 +103,16 @@ struct type * expr_typecheck(struct expr *e){
 				print_type_t(lt);
 				printf(" and type ");
 				print_type_t(rt);
-				printf(" respectively \n");
+				printf(" respectively \n\n");
 			}
-			if(lt->kind == TYPE_VOID || lt->kind == TYPE_ARRAY || lt->kind == TYPE_FUNCTION){
+			if(lt->kind != TYPE_INTEGER && lt->kind != TYPE_BOOLEAN){
 				printf("type error (%i): Comparison between '", ++typecheck_err);
 				expr_print(e->left);
 				printf("' and '");
 				expr_print(e->right);
 				printf("' cannot be accomplished because ");
 				print_type_t(lt);
-				printf(" is a non-comparable type\n");
+				printf(" is a non-comparable type\n\n");
 			}
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
 			break;
@@ -125,7 +130,7 @@ struct type * expr_typecheck(struct expr *e){
 				print_type_t(lt);
 				printf(" and type ");
 				print_type_t(rt);
-				printf(" respectively.\n");
+				printf(" respectively.\n\n");
 			}
 			//operands_typecheck(e, TYPE_INTEGER, lt->kind, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
@@ -137,7 +142,7 @@ struct type * expr_typecheck(struct expr *e){
 				expr_print(e);
 				printf("' must be of type 'integer'. Argument is of type ");
 				print_type_t(lt);
-				printf(".\n");
+				printf(".\n\n");
 			}
 			//operands_typecheck(e, 0, 0, TYPE_INTEGER, rt->kind);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
@@ -149,7 +154,7 @@ struct type * expr_typecheck(struct expr *e){
 				expr_print(e);
 				printf("' must be of type 'boolean'. Argument is of type ");
 				print_type_t(lt);
-				printf(".\n");
+				printf(".\n\n");
 			}
 			//operands_typecheck(e, 0, 0, TYPE_BOOLEAN, rt->kind);
 			result = type_create(TYPE_BOOLEAN, NULL, NULL, NULL);
@@ -162,7 +167,7 @@ struct type * expr_typecheck(struct expr *e){
 				expr_print(e);
 				printf("' must be of type 'integer'. Argument is of type ");
 				print_type_t(lt);
-				printf(".\n");
+				printf(".\n\n");
 			}
 			//operands_typecheck(e, TYPE_INTEGER, lt->kind, 0, 0);
 			result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
@@ -176,7 +181,7 @@ struct type * expr_typecheck(struct expr *e){
 					printf("' has non-integer index\n");
 					printf("\tindex was of type ");
 					print_type_t(rt);
-					printf("\n");
+					printf("\n\n");
 				}
 
 				//WORKING HERE
@@ -186,7 +191,7 @@ struct type * expr_typecheck(struct expr *e){
 				print_type_t(lt);
 				printf(" operation is not allowed within '");
 				expr_print(e);
-				printf("' context.\n");
+				printf("' context. Are you sure you're dereferencing an array?\n\n");
 				result = type_copy(lt);
 			}
 			break;
@@ -203,7 +208,7 @@ struct type * expr_typecheck(struct expr *e){
 			}else{
 				printf("type error (%i): argument 1 of function call '", ++typecheck_err);
 				expr_print(e);
-				printf("' does not describe a function\n");
+				printf("' does not describe a function\n\n");
 			}
 
 			result = type_copy(lt->subtype);
@@ -216,7 +221,7 @@ struct type * expr_typecheck(struct expr *e){
 				printf("type error (%i): Could not identify type of parenthesized expression.", ++typecheck_err);
 				printf(" Defaulting to integer type for expression '");
 				expr_print(e->inner);
-				printf("'\n");
+				printf("'\n\n");
 				result = type_create(TYPE_INTEGER, NULL, NULL, NULL);
 			}
 			break;
@@ -226,7 +231,7 @@ struct type * expr_typecheck(struct expr *e){
 			}else{
 				printf("type error (%i): identifier '", ++typecheck_err);
 				expr_print(e);
-				printf("' did not resolve to known value\n");
+				printf("' did not resolve to known value\n\n");
 				result = NULL;
 			}
 			break;
@@ -257,7 +262,7 @@ struct type * expr_typecheck(struct expr *e){
 							print_type_t(firstType);
 							printf(" and element %i is of type ", elemCounter);
 							print_type_t(nextType);
-							printf(".\n");
+							printf(".\n\n");
 						}
 						nextExpr = nextExpr->next;
 						type_delete(nextType);
@@ -271,7 +276,7 @@ struct type * expr_typecheck(struct expr *e){
 		default:
 			printf("type error (%i): Cannot type check unknown type at expression '", ++typecheck_err);
 			expr_print(e);
-			printf("'\n");
+			printf("'\n\n");
 			result = NULL;
 			break;
 	}
@@ -294,18 +299,28 @@ void decl_typecheck(struct decl *d){
 				print_type_t(d->symbol->type->subtype);
 				printf(" but is later declared with type ");
 				print_type_t(d->type->subtype);
-				printf(".\n");
+				printf(".\n\n");
+			}
+
+			if(d->symbol->type->subtype->kind == TYPE_FUNCTION || d->symbol->type->subtype->kind == TYPE_ARRAY){
+				printf("type error (%i): Function %s cannot return type ", ++typecheck_err, d->name);
+				print_type_t(d->symbol->type->subtype);
+				printf(".\n\n");
 			}
 		}else{
-			printf("type error (%i): unable to determine original return type of function %s\n", ++typecheck_err, d->name);
+			printf("type error (%i): unable to determine original return type of function %s\n\n", ++typecheck_err, d->name);
 		}
-	} 
+	}
 
 	if(d->value){
 		struct type *t;
 		t = expr_typecheck(d->value);
 		if(type_equals(t,d->symbol->type)){
-			printf("type error (%i): Attempted to define variable declared as '%s' with a value of type '%s'\n", ++typecheck_err, getType(d->symbol->type->kind), getType(t->kind));
+			printf("type error (%i): Attempted to define variable declared as ", ++typecheck_err);
+			print_type_t(d->symbol->type);
+			printf(" with a value of type ");
+			print_type_t(t);
+			printf(".\n\n");
 		}
 		type_delete(t);
 	}
@@ -346,7 +361,7 @@ void stmt_typecheck(struct stmt *s){
 			t = expr_typecheck(s->expr);
 			if(t->kind!=TYPE_BOOLEAN){
 				printf("type error (%i): 'if-then' statement must have type 'boolean' control expression\n", ++typecheck_err);
-				printf("\tCurrent control expression is of type '%s'\n", getType(t->kind));
+				printf("\tCurrent control expression is of type '%s'\n\n", getType(t->kind));
 			}
 			type_delete(t);
 			stmt_typecheck(s->body);
@@ -358,7 +373,7 @@ void stmt_typecheck(struct stmt *s){
 			t = expr_typecheck(s->expr);
 			if(t && t->kind!=TYPE_BOOLEAN){
 				printf("type error (%i): Condition of for loop must be of type 'boolean'\n", ++typecheck_err);
-				printf("\tCurrent condition is of type '%s'\n", getType(t->kind));
+				printf("\tCurrent condition is of type '%s'\n\n", getType(t->kind));
 			}
 			type_delete(t);
 			t = expr_typecheck(s->next_expr);
@@ -378,7 +393,7 @@ void stmt_typecheck(struct stmt *s){
 			if(!function_lock){
 				printf("type error (%i): statement 'return ", ++typecheck_err);
 				expr_print(s->expr);
-				printf("' located outside function definition\n");
+				printf("' located outside function definition\n\n");
 			}else{
 				if(t->kind!=return_type){
 					printf("type error (%i): Current function scope has return type '%s'", ++typecheck_err, getType(return_type));
@@ -386,17 +401,17 @@ void stmt_typecheck(struct stmt *s){
 					expr_print(s->expr);
 					printf(") has type ");
 					print_type_t(t);
-					printf(".\n");
+					printf(".\n\n");
 				}
 			}
 			type_delete(t);
-			if(s->expr && s->expr->next) printf("type error (%i): function cannot return multiple expressions\n", ++typecheck_err);
+			if(s->expr && s->expr->next) printf("type error (%i): function cannot return multiple expressions\n\n", ++typecheck_err);
 			break;
 		case STMT_BLOCK:
 			stmt_typecheck(s->body);
 			break;
 		default:
-			printf("type error (%i): Unknown statement type detected\n", ++typecheck_err);
+			printf("type error (%i): Unknown statement type detected\n\n", ++typecheck_err);
 			break;
 	}
 
@@ -442,7 +457,7 @@ int set_return(struct decl* d){
 		if(d->type->subtype) return_type = d->type->subtype->kind;
 		return 0;
 	}else{
-		printf("type error (%i): Function %s cannot be declared within a function.\n", ++typecheck_err, d->name);
+		printf("type error (%i): Function %s cannot be declared within a function.\n\n", ++typecheck_err, d->name);
 		return 1;
 	}
 }

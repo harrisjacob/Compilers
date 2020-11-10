@@ -1,0 +1,17 @@
+//Bad && and || operations
+
+bravo: function integer();
+
+alpha: function integer() = {
+	x:boolean = 1 && true;
+	y:boolean = false && 'c';
+	z:boolean = 2 || 6;
+
+	x = bravo() && true;
+
+
+}
+
+bravo: function integer() = {
+	return 1;
+}

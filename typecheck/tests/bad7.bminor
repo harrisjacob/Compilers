@@ -1,0 +1,13 @@
+//negative and not
+
+alpha: function integer() = {
+	a:boolean = true;
+	b:integer = 1;
+	c: char = 'c';
+	s:string = "hello";
+
+	a = !s;
+	b = -c;
+	b = !1;
+	a = -5;
+}

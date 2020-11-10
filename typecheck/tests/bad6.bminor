@@ -1,0 +1,20 @@
+//bad arithmetic operations
+
+alpha: function integer() = {
+	a: integer = 1;
+	b: integer = 0;
+	c: char = 'c';
+	d: string = "hello";
+	e: boolean = false;
+
+	a = b+c;
+	a = d-b;
+	a = a/d;
+	a = a*e;
+	a = d^e;
+	a = c%5;
+
+	g:array [1] integer = {1};
+	a = 5 + 'c' + "Hello" + g;
+
+}

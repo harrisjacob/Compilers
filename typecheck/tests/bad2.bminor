@@ -1,0 +1,23 @@
+//arrays
+
+//Trying to assign an array later
+alpha: function integer() = {
+	x:array [3] integer;
+	x = {5,3,4};	
+}
+
+//Bad initial element of array
+bravo: function integer() = {
+	y:array [2] integer = {true, 1};
+}
+
+//Bad non-initial element of array
+charlie: function integer() = {
+	z:array [4] integer = {1, false, 'c', "hello"};
+}
+
+//Dereferencing non-array
+delta: function integer() = {
+	b:boolean = true;
+	b[1] = 1;
+}

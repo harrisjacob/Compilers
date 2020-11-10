@@ -1,0 +1,10 @@
+//Bad assignments
+alpha: function integer(x:integer, y:integer) = {
+	
+	c:char = x;
+	b:boolean = 4;
+	a:array [3] integer = {1,2,3};
+	a[1] = 'a';
+	s:string = 'c';
+}
+

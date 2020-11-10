@@ -1,0 +1,18 @@
+//Post increment and decrement
+alpha: function integer() = {
+	a:integer = 0;
+	b:boolean = true;
+	c:char = 'c';
+	s:string  = "hello";
+	r:array [1] integer = {1};
+
+	a = b++;
+	a = b--;
+	a = c++;
+	a = c--;
+	a = s++;
+	a = s--;
+	a = r++;
+	a = r--;
+
+}

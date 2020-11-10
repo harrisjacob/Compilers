@@ -1,0 +1,9 @@
+//Comparison operators
+
+alpha: function integer() = {
+	a:boolean = "hello" > 3;
+	b:boolean = 'a' >= 2;
+	a = 5 < true;
+	c: array [1] integer = {1};
+	b = b < c;	
+}

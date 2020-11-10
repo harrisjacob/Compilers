@@ -1,0 +1,26 @@
+//Conditional flow that requires a specific types
+
+alpha: function integer() = {
+	a:integer = 0;
+	b:boolean = true;
+	c:char = 'c';
+	s:string  = "hello";
+	r:array [1] integer = {1};
+
+	if(a){
+		print "Hello";
+	}
+
+	for(a=0;a+1;a++){
+		print a;
+	}
+
+	if(r[1]){
+		print "You can't do that\n";
+	}
+
+	//This is ok
+	for(;;){
+		print 'a';
+	}
+}

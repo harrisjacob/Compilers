@@ -1,0 +1,17 @@
+//Equality comparisions
+
+alpha: function integer() = {
+	a:array [1] integer = {1};
+	b:array [2] integer = {2};
+
+	c:boolean = a==b;
+	c = a!=b;
+
+	d:integer = 1;
+	e: char = 'c';
+	c = e==e;
+
+	c = 5!=e;
+
+	c = e==5;
+}
