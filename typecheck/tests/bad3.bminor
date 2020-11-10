@@ -1,4 +1,4 @@
-//Bad && and || operations
+//Bad cases && and || operations
 
 bravo: function integer();
 

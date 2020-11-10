@@ -1,0 +1,25 @@
+//Good cases of assignments
+
+bravo: function integer() = {
+	return 1;
+}
+
+alpha: function boolean() = {
+	a:integer = 1;
+	b:boolean = true;
+	c:char = 'c';
+	s:string = "hello";
+	r:array [1] integer = {1};
+	z:integer = 10;
+
+	a = 2;
+	b = false;
+	c = 'd';
+	s = "goodbye";
+	r[0] = 100;
+	z = a - r[0];
+	z = a + bravo() + (((a=2)));
+
+	a = z = a = z = a = z = r[0] = z = a = bravo();
+
+}

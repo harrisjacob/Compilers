@@ -1,0 +1,27 @@
+//good cases of arithmetic operations
+
+bravo: function integer() = {return 1;}
+
+alpha: function integer() = {
+	a:integer = 3;
+	z:integer = 10;
+	b:boolean = true;
+	c:char = 'c';
+	s:string = "hello";
+	r:array [1] integer = {1};
+
+
+	a = z++ + 1;
+	a = z - bravo();
+	a = z*a;
+
+	if(a+5 == 1){
+		r[0] = a/z+bravo();
+	}else{
+		r[0] = z*a + r[0]%2;
+	}
+
+	a = a + r[0] + a + bravo() + z + z + - bravo() - a;
+
+	return a;
+}

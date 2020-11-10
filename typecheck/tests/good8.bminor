@@ -1,0 +1,19 @@
+//good cases of post- increment and decrement
+alpha: function integer() = {
+	a:integer = 0;
+	b:boolean = true;
+	c:char = 'c';
+	s:string = "hello";
+	r:array [1] integer = {1};
+
+
+	x:integer = a++;
+	x = a--;
+
+	r[0]++;
+	r[0]--;
+
+	x = (a*50)--^12;
+
+	return x;
+}

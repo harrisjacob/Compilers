@@ -1,7 +1,7 @@
 OBJ = scanner.o parser.o main.o stmt.o decl.o expr.o type.o library.o typechecker.o param_list.o token.o hash_table.o scope.o resolve.o symbol.o
 
 bminor:  $(OBJ)
-	gcc $^ -o bminor -lm
+	gcc $^ -o bminor -lm -g
 
 # This pattern indicates that any .o file depends
 # upon the .c file of the same name.
@@ -22,4 +22,4 @@ parser.c parser.h: parser.bison
 
 clean:
 	rm -f parser.[ch] parser.output scanner.c *.o bminor
-	rm tests/resolve/*.output
+	rm tests/*.output

@@ -1,0 +1,22 @@
+//Good cases of arrays
+
+alpha: function boolean() = {
+	a:integer = 1;
+	b:array [2] integer = {1,2};
+	c:array [2] array [2] integer = {{11,12}, {21,22}};
+	d:array [3] array [1] boolean = {{true}, {false}, {true}};
+	e:array [2] array [2] char = {{'a','b'},{'c','d'}};
+
+
+	b[0] = a;
+	c[0][0] = b[0];
+	d[1][0] = false;
+	e[0] = {'e','f'};
+
+	g:array [2] char = e[0];
+	c[1][1]++;
+	c[1][0] = a-100;
+
+	return d[1][0];
+
+}

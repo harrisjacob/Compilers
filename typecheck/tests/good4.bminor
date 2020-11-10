@@ -1,0 +1,28 @@
+//Good cases of comparison operators
+
+alpha: function boolean() = {
+	a:integer = 1;
+	b:boolean = true;
+	c:char = 'c';
+	s:string = "hello";
+	r:array [1] integer = {1};
+	z:integer = 10;
+
+	if(a<z){
+		print s, " world!\n";
+	}
+
+	for(a+2;a>=12;b){
+		r[0] = a;
+	}
+
+	if(a+z > 5 && a-z < 12){
+		return false;
+	}
+
+	if(z >= a%2 || z <= a^4){
+		return true;
+	}
+
+	return a>z;
+}

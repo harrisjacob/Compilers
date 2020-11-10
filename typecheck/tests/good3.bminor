@@ -1,0 +1,29 @@
+//Good cases of && and || comparison
+
+alpha: function boolean() = {
+	a:integer = 1;
+	b:boolean = true;
+	c:char = 'c';
+	s:string = "hello";
+	r:array [1] integer = {1};
+	z:integer = 10;
+
+	if(true && b){
+		print "Both are true";
+	}else{
+		print "One is false";
+	}
+
+	for(a==2||b; a==1||b; a==3||b){
+		for(;;b&&2!=1){
+			if(!(b && r[0]==1 || a-2 < 4)) print s;
+		}
+	}
+
+
+	if(r[0]==2 || false && z-a%2==0){
+		return b && !(!b);
+	}
+
+	return !b;
+}

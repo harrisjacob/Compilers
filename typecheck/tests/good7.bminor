@@ -1,0 +1,23 @@
+//good cases of negative and not
+
+alpha: function integer() = {
+	a:integer = 0;
+	b:boolean = true;
+	c:char = 'c';
+	s:string = "hello";
+	r:array [1] integer = {1};
+
+	if(!b){
+		print -(a+1);
+	}else{
+		for(a=0;!!b;a++){
+			print s;
+		}
+	}
+
+	if(-(-(a+10)) < 12){
+		return -a++;
+	}else{
+		return -a--;
+	}
+}

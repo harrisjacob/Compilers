@@ -1,0 +1,61 @@
+//Good cases of functions
+
+alpha: function boolean();
+alpha: function boolean();
+alpha: function boolean();
+alpha: function boolean();
+alpha: function boolean();
+alpha: function boolean();
+alpha: function boolean();
+alpha: function boolean();
+bravo: function integer();
+
+x:integer = 0;
+
+alpha: function boolean() = {
+	a:integer = 1;
+	b:boolean = true;
+	c:char = 'c';
+	s:string = "hello";
+	r:array [1] integer = {1};
+	z:integer = 10;
+
+	x++;
+
+	if(x==10){
+		return false;
+	}else{
+		return alpha();
+	}
+
+	return true;
+}
+
+
+bravo: function integer() = {
+	if(!alpha())return 1;
+	else return 0;
+}
+
+echo: function integer(y:integer);
+
+charlie: function string() = {
+	if(bravo() == 1){
+		return "hello\n";
+	}else{
+		return "goodbye\n";
+	}
+}
+
+
+delta: function char(x:integer) = {
+	if(x<5 && alpha() && echo(x)< 5){
+		return 'a';
+	}else{
+		return 'b';
+	}
+}
+
+echo: function integer(y:integer) = {
+	return y;
+}

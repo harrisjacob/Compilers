@@ -1,4 +1,4 @@
-//Equality comparisions
+//Bad cases of equality comparisions
 
 alpha: function integer() = {
 	a:array [1] integer = {1};

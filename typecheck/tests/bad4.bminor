@@ -1,4 +1,4 @@
-//Comparison operators
+//Bad cases of comparison operators
 
 alpha: function integer() = {
 	a:boolean = "hello" > 3;

@@ -1,0 +1,29 @@
+//Conditional flow and random B-minor code
+
+alpha: function integer() = {
+	a:integer = 0;
+	b:boolean = true;
+	c:char = 'c';
+	s:string = "hello";
+	r:array [1] integer = {1};
+
+	if(b){
+		for(a=0;a<5;a++){
+			print s;
+			if(a%2==0) print "even";
+			if(a >= 10){
+				print "Not possible";
+			}else{
+				print c;
+			}
+		}
+	}
+
+	for(;a!=0;a++){
+		if(!b && a+2 == 11){
+			r[0] = a;
+		}
+	}
+
+	return a - r[0];
+}

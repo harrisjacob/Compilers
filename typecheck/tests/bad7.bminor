@@ -1,4 +1,4 @@
-//negative and not
+//bad cases of negative and not
 
 alpha: function integer() = {
 	a:boolean = true;

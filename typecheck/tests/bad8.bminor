@@ -1,4 +1,4 @@
-//Post increment and decrement
+//bad cases of post increment and decrement
 alpha: function integer() = {
 	a:integer = 0;
 	b:boolean = true;

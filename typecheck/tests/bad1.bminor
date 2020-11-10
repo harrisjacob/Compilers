@@ -1,4 +1,4 @@
-//Bad assignments
+//Bad cases of assignments
 alpha: function integer(x:integer, y:integer) = {
 	
 	c:char = x;
