@@ -6,6 +6,8 @@
 
 int resolve_tree(struct decl* tree);
 
+int attach_symbol(struct decl* d, symbol_t kind, struct hash_table* ht);
+
 int decl_resolve(struct decl *d, struct hash_table *ht);
 
 int expr_resolve(struct expr *e, struct hash_table* ht);

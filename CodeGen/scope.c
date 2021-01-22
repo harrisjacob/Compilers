@@ -139,7 +139,7 @@ int scope_defined(const char* name, struct symbol* s, struct hash_table* ht){
 	if((findSymbol = hash_table_lookup(ht, name))){
 		if(!findSymbol->defined){		//If it is not defined set it as defined
 			findSymbol->defined = 1;
-		}else{							//If it is defined through error message
+		}else{							//If it is defined throw error message
 			scope_redeclared(name, findSymbol, s);
 			return 1;
 		}

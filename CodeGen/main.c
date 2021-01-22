@@ -5,12 +5,15 @@
 #include "token.h"
 #include "parser.h"
 #include "resolve.h"
+#include "typechecker.h"
+
 
 extern FILE *yyin;
 extern int yyparse();
 extern int yylex();
 extern char *yytext;
 extern int yyleng;
+extern int typecheck_err;
 extern const char* token_to_string();
 
 void helpInfo(int status);
@@ -86,6 +89,16 @@ int main( int argc, char *argv[] )
 		printf("Return code: %i\n", ret);
 		return ret;
 
+	}else if(!strcmp(argv[1],"-typecheck")){
+		if(yyparse()){
+			printf("Parse failed.\n");
+			return 1;
+		}
+		if(resolve_tree(program_output)) return 1;
+		printf("\n");
+		decl_typecheck(program_output);
+		return (!typecheck_err) ? 0 : 1;
+
 	}else{
 		printf("Error: Unknown stage requested\n");
 		helpInfo(1);
@@ -93,7 +106,6 @@ int main( int argc, char *argv[] )
 
 	
 	return 0;
-
 }
 
 void helpInfo(int status){

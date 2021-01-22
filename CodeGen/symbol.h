@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "type.h"
 
 typedef enum {
 	SYMBOL_LOCAL,
@@ -21,5 +22,6 @@ struct symbol {
 };
 
 struct symbol * symbol_create( symbol_t kind, struct type *type, char *name );
+
 
 #endif
