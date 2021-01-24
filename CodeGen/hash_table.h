@@ -61,8 +61,7 @@ struct hash_table {
 	struct hash_table *prev;
 	struct hash_table *next;
 	int level;
-	int local_count;
-	int param_count;
+	int localParam_count;
 };
 
 

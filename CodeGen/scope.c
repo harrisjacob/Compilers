@@ -41,10 +41,10 @@ int scope_bind(const char *name, struct symbol *s, struct hash_table *ht){
 		}else{
 			printf("%s declared as ", name);
 			if(s->kind == SYMBOL_LOCAL){
-				s->which = (ht->local_count)++;
+				s->which = (ht->localParam_count)++;
 				printf("local %i", s->which);
 			}else if(s->kind == SYMBOL_PARAM){
-				s->which = (ht->param_count)++;
+				s->which = (ht->localParam_count)++;
 				printf("param %i", s->which);
 			}else{
 				printf("global %s",name);

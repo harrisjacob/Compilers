@@ -25,7 +25,7 @@ struct hash_table *hash_table_create(int bucket_count, hash_func_t func)
 		return 0;
 	}
 
-	h->level = h->local_count = h->param_count = 0;
+	h->level = h->localParam_count;
 
 	return h;
 }
