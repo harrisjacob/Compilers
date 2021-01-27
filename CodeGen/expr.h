@@ -67,6 +67,7 @@ struct expr {
 	struct symbol *symbol;
 	struct expr* inner;
 	struct expr* next;
+	int reg;
 };
 
 struct expr * expr_create( expr_t kind, struct expr *left, struct expr *right, struct expr *next);
